@@ -20,6 +20,20 @@
         </tr>
     </thead>
     <tbody>
-        
+        <?php
+            foreach($tabCanditure as $candidature)
+            {
+               ?>
+                <tr>
+                    <th><?php echo $candidature->getFormation()->getNomFormation(); ?></th>
+                    <th><?php echo $candidature->getFormation()->getNiveau(); ?></th>
+                    <th><?php echo $candidature->getFormation()->getDomaine(); ?></th>
+                    <th><?php echo $candidature->getUniversite()->getNom_univ(); ?></th>
+                    <th><?php echo $candidature->getUniversite()->getVille(); ?></th>
+                    <th><?php echo $candidature->getUniversite()->getVerificaion(); ?></th>
+                </tr>
+                <?php
+            } 
+                ?>
     </tbody>
 </table>

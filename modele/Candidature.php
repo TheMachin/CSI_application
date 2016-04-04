@@ -20,10 +20,11 @@ class Candidature {
     private $verificaion;
     private$date;
     
-    function __construct($no, $lettreMotiv,  Dossier $dossier, $verificaion, $date) {
+    function __construct($no, $lettreMotiv,  Dossier $dossier, Formation $formation,$verificaion, $date) {
         $this->no = $no;
         $this->lettreMotiv = $lettreMotiv;
         $this->dossier = $dossier;
+        $this->formation = $formation;
         $this->verificaion = $verificaion;
         $this->date = $date;
     }
@@ -68,6 +69,16 @@ class Candidature {
     function setDate($date) {
         $this->date = $date;
     }
+    
+    function getFormation() {
+        return $this->formation;
+    }
+
+    function setFormation($formation) {
+        $this->formation = $formation;
+    }
+
+
 
 
 }

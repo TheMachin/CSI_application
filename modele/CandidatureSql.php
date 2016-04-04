@@ -21,7 +21,8 @@ class CandidatureSql {
         $req->execute();
         foreach ($req as $row) {
             $dossiersql=new DossierSql();
-            $candidature=new Candidature($row["NO_CANDIDATURE"], $row["NO_DOC_LETTRE_MOTIVATION"], $dossiersql->getDossierById($pdo, $row['NO_DOSSIER']), $row['VERIFICATION'], $row["DATE"]);
+            $formationsql=new FormationSql();
+            $candidature=new Candidature($row["NO_CANDIDATURE"], $row["NO_DOC_LETTRE_MOTIVATION"], $dossiersql->getDossierById($pdo, $row['NO_DOSSIER']),$formationsql->getById($pdo, $row["NO_FORMATION"]), $row['VERIFICATION'], $row["DATE"]);
             array_push($tabCandidature, $candidature);
         }
         return $tabCandidature;

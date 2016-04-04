@@ -6,6 +6,10 @@ include("../modele/CandidatSql.php");
 include("../modele/GestionnaireSql.php");
 include("../modele/DossierSql.php");
 include("../modele/PaysSql.php");
+include("../modele/CandidatureSql.php");
+include("../modele/FormationSql.php");
+include("../modele/ResponsableFSql.php");
+include("../modele/UniversiteSql.php");
 
 //$candidat=new Candidat("", NULL, "", "", "", "", "", "");
 $dossierSql=new DossierSql();
@@ -13,6 +17,8 @@ $dossier=$dossierSql->getDossierById($pdo, 1);
 $candidat=$dossier->getCandidat();
 $gestionnaire=$dossier->getGestionnaire();
 
+$candidatureSql=new CandidatureSql();
+$tabCanditure=$candidatureSql->getCandidatureByUser($pdo, $candidat->getNom_candidat());
 ?>
 <!DOCTYPE html>
 <!--
@@ -59,7 +65,14 @@ and open the template in the editor.
         </div>
         
         <div id="candidature">
-            
+            <?php
+                if(count($tabCanditure)>0)
+                {
+                    include("../vue/candidature.php");
+                }else{
+                    echo "Aucune candidature";
+                }
+            ?>
         </div>   
         <div id="document">
             
