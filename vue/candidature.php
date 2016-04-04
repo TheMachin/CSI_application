@@ -5,7 +5,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
+if(count($tabCanditure)>0)
+{
 ?>
 
 <table>
@@ -37,3 +38,9 @@
                 ?>
     </tbody>
 </table>
+
+<?php
+}else{
+    echo "Aucune candidature";
+}
+?>

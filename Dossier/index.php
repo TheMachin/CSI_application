@@ -1,5 +1,6 @@
 <?php
-        // put your code here
+session_start();       
+// put your code here
 include("../modele/connexion.php");
 
 include("../modele/CandidatSql.php");
@@ -11,11 +12,22 @@ include("../modele/FormationSql.php");
 include("../modele/ResponsableFSql.php");
 include("../modele/UniversiteSql.php");
 
-//$candidat=new Candidat("", NULL, "", "", "", "", "", "");
-$dossierSql=new DossierSql();
-$dossier=$dossierSql->getDossierById($pdo, 1);
-$candidat=$dossier->getCandidat();
-$gestionnaire=$dossier->getGestionnaire();
+
+if(empty($_SESSION["dossier"]))
+{
+    if(!empty($_SESSION["candidat"]))
+    {
+        $candidat=  unserialize($_SESSION["candidat"]);
+        $dossierSql=new DossierSql();
+        $dossier=$dossierSql->getDossierById($pdo, $candidat->getNom_candidat());
+    }else{
+        // je ne sais pas quoi faire
+    }
+}else{
+    $dossier=  unserialize($_SESSION["dossier"]);
+    $candidat=$dossier->getCandidat();
+}
+
 
 $candidatureSql=new CandidatureSql();
 $tabCanditure=$candidatureSql->getCandidatureByUser($pdo, $candidat->getNom_candidat());
@@ -50,9 +62,6 @@ and open the template in the editor.
             <div>
                 Date de naissance : <?php echo $candidat->getDate_nais(); ?>
             </div>
-            <!--<div>
-                Adresse : <?php //echo $candidat->getPrenom(); ?>
-            </div>-->
             <div>
                 Adresse mail : <?php echo $candidat->getEmail(); ?>
             </div>
@@ -66,12 +75,7 @@ and open the template in the editor.
         
         <div id="candidature">
             <?php
-                if(count($tabCanditure)>0)
-                {
-                    include("../vue/candidature.php");
-                }else{
-                    echo "Aucune candidature";
-                }
+                include("../vue/candidature.php");
             ?>
         </div>   
         <div id="document">

@@ -40,6 +40,10 @@ if($_POST["type"]==="candidat")
         header("location:". $_SERVER['HTTP_REFERER']);
         exit();
     }
+    
+    session_start();
+    $_SESSION["candidat"]=  serialize($candidat);
+    
 }else if($_POST["type"]==="gestionnaire")
 {
     //$gestionnaire=new Gestionnaire($user, NULL, $mdp, "", "");
@@ -50,6 +54,10 @@ if($_POST["type"]==="candidat")
         header("location:". $_SERVER['HTTP_REFERER']);
         exit();
     }
+    
+    session_start();
+    $_SESSION["gestionnaire"]=  serialize($gestionnaire);
+    
 }else if($_POST["type"]==="responsable"){
     //$responsable=new ResponsableF($user, NULL, $mdp, "", "");
     $responsableSql=new ResponsableFSql();
@@ -59,4 +67,8 @@ if($_POST["type"]==="candidat")
         header("location:". $_SERVER['HTTP_REFERER']);
         exit();
     }
+    
+    session_start();
+    $_SESSION["responsable"]=  serialize($responsable);
+    
 }

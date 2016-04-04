@@ -24,4 +24,16 @@ class DossierSql {
             $dossier= new Dossier($row["NO_DOSSIER"], $candidatSql->getCandidatByNomUser($pdo, $row["NOM_CANDIDAT"]), $gestionnaireSql->getGestionnaireByNomUser($pdo, $row["NOM_GESTIONNAIRE"]), $row["VERIFCATION"]);
         return $dossier;
     }
+    
+    function getDossierDuCandidat($pdo,$user)
+    {
+        $req = $pdo->prepare("SELECT * FROM DOSSIER WHERE NOM_CANDIDAT=?");
+        $req->bindValue(1,$user);
+        $req->execute();
+        $row=$req->fetch();
+            $candidatSql=new CandidatSql();
+            $gestionnaireSql=new GestionnaireSql();
+            $dossier= new Dossier($row["NO_DOSSIER"], $candidatSql->getCandidatByNomUser($pdo, $row["NOM_CANDIDAT"]), $gestionnaireSql->getGestionnaireByNomUser($pdo, $row["NOM_GESTIONNAIRE"]), $row["VERIFCATION"]);
+        return $dossier;
+    }
 }
