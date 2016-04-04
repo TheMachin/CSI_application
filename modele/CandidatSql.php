@@ -31,7 +31,7 @@ class CandidatSql {
     {
         $req = $pdo->prepare("SELECT * FROM candidat WHERE NOM_CANDIDAT=? AND MDP=?");
         $req->bindValue(1,$c->getNom_candidat());
-        $req->bindValue(1,$c->getMdp());
+        $req->bindValue(2,$c->getMdp());
         $req->execute();
         $row=$req->fetch();
             $pays=new Pays($row["NO_PAYS"], "");

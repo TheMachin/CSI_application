@@ -30,7 +30,26 @@ if($bool==FALSE)
     exit();
 }
 
-if($_POST["type"]=="candidat")
+if($_POST["type"]==="candidat")
 {
+    $candidatSql=new CandidatSql();
+    $candidat=new Candidat($user, NULL, $mdp, "", "", "", "", "");
+    $candidat=$candidatSql->getCandidatConnexion($pdo, $candidat);
+    
+    if($candidat==NULL){
+        header("location:". $_SERVER['HTTP_REFERER']);
+        exit();
+    }
+}else if($_POST["type"]==="gestionnaire")
+{
+    $gestionnaire=new Gestionnaire($user, NULL, $mdp, "", "");
+    $gestionnaireSql=new GestionnaireSql();
+    $gestionnaire=$gestionnaireSql->getGestionnaireConnexion($pdo, $gestionnaire);  
+    
+    if($gestionnaire==NULL){
+        header("location:". $_SERVER['HTTP_REFERER']);
+        exit();
+    }
+}else if($_POST["type"]==="responsable"){
     
 }

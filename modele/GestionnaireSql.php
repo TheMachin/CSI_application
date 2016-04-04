@@ -25,4 +25,18 @@ class GestionnaireSql {
             $gestionnaire=new Gestionnaire($row["NOM_COMPTE"], $pays, $row["MDP"], $row["NOM"], $row["PRENOM"]);
         return $gestionnaire;
     }
+    
+    function getGestionnaireConnexion($pdo,  Gestionnaire $g)
+    {
+        $req = $pdo->prepare("SELECT * FROM GESTIONNAIRE WHERE NOM_COMPTE=? AND MDP=?");
+        $req->bindValue(1,$g->getNomCompte());
+        $req->bindValue(2,$g->getMdp());
+        $req->execute();
+        $row=$req->fetch();
+            $pays=new Pays($row["NO_PAYS"], "");
+            $paysSql=new PaysSql();
+            $pays->setNom_pays($paysSql->getPaysById($pdo, $pays->getId()));
+            $gestionnaire=new Gestionnaire($row["NOM_COMPTE"], $pays, $row["MDP"], $row["NOM"], $row["PRENOM"]);
+        return $gestionnaire;
+    }
 }
