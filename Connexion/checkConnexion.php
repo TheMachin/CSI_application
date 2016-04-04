@@ -33,8 +33,8 @@ if($bool==FALSE)
 if($_POST["type"]==="candidat")
 {
     $candidatSql=new CandidatSql();
-    $candidat=new Candidat($user, NULL, $mdp, "", "", "", "", "");
-    $candidat=$candidatSql->getCandidatConnexion($pdo, $candidat);
+    //$candidat=new Candidat($user, NULL, $mdp, "", "", "", "", "");
+    $candidat=$candidatSql->getCandidatConnexion($pdo, new Candidat($user, NULL, $mdp, "", "", "", "", ""));
     
     if($candidat==NULL){
         header("location:". $_SERVER['HTTP_REFERER']);
@@ -42,18 +42,18 @@ if($_POST["type"]==="candidat")
     }
 }else if($_POST["type"]==="gestionnaire")
 {
-    $gestionnaire=new Gestionnaire($user, NULL, $mdp, "", "");
+    //$gestionnaire=new Gestionnaire($user, NULL, $mdp, "", "");
     $gestionnaireSql=new GestionnaireSql();
-    $gestionnaire=$gestionnaireSql->getGestionnaireConnexion($pdo, $gestionnaire);  
+    $gestionnaire=$gestionnaireSql->getGestionnaireConnexion($pdo, new Gestionnaire($user, NULL, $mdp, "", ""));  
     
     if($gestionnaire==NULL){
         header("location:". $_SERVER['HTTP_REFERER']);
         exit();
     }
 }else if($_POST["type"]==="responsable"){
-    $responsable=new ResponsableF($user, NULL, $mdp, "", "");
+    //$responsable=new ResponsableF($user, NULL, $mdp, "", "");
     $responsableSql=new ResponsableFSql();
-    $responsable=$responsableSql->getConnexion($pdo, $responsable);  
+    $responsable=$responsableSql->getConnexion($pdo, new ResponsableF($user, NULL, $mdp, "", ""));  
     
     if($responsable==NULL){
         header("location:". $_SERVER['HTTP_REFERER']);
