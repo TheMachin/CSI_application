@@ -2,7 +2,7 @@
 include("../modele/connexion.php");
 include("../modele/CandidatSql.php");
 include("../modele/GestionnaireSql.php");
-include("../modele/ResponsableF.php");
+include("../modele/ResponsableFSql.php");
 /* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -51,5 +51,12 @@ if($_POST["type"]==="candidat")
         exit();
     }
 }else if($_POST["type"]==="responsable"){
+    $responsable=new ResponsableF($user, NULL, $mdp, "", "");
+    $responsableSql=new ResponsableFSql();
+    $responsable=$responsableSql->getConnexion($pdo, $responsable);  
     
+    if($responsable==NULL){
+        header("location:". $_SERVER['HTTP_REFERER']);
+        exit();
+    }
 }
