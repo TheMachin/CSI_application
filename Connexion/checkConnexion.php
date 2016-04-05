@@ -4,8 +4,6 @@ include("../modele/CandidatSql.php");
 include("../modele/GestionnaireSql.php");
 include("../modele/ResponsableFSql.php");
 include("../modele/PaysSql.php");
-
-session_start();
 /* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -26,22 +24,12 @@ if(empty($_POST["pwd"]))
     $mdp=sha1($_POST["pwd"]);
 }
 
-/**
- * 
- */
 if($bool==FALSE)
 {
-    $_SESSION["msgErreur"]="Le champ du nom d'utilisateur ou du mot de passe est/sont vide(s)";
     header("location:". $_SERVER['HTTP_REFERER']);
     exit();
 }
 
-/**
- * On vérifie si c'est un candidat ou un gestionnaire ou un responsable de formaton qui se connecte
- * On vérifie avec la bdd si la personne est déjà renseigné et que le mot de passe existe
- * si c'est le cas, on enregistre la personne dans une variable session
- * sinon on revient à la page de connexion et un message d'erreur sera affiché
- */
 if($_POST["type"]==="candidat")
 {
     $candidatSql=new CandidatSql();
@@ -50,16 +38,15 @@ if($_POST["type"]==="candidat")
     $candidat=$candidatSql->getCandidatConnexion($pdo, new Candidat($user, $pays, $mdp, "", "", "", "", ""));
     
     if(empty($candidat->getNom_candidat())){
+        echo "here";
+        session_start();
         $_SESSION["msgErreur"]="Nom d'utilisateur ou mot de passe incorrecte";
         header("location:". $_SERVER['HTTP_REFERER']);
         exit();
     }
     
-    
+    session_start();
     $_SESSION["candidat"]=  serialize($candidat);
-    $_SESSION["user"]="candidat"; // l'utilisateur connecté est un candidat
-    header('Location: ../Candidat/index.php');
-    exit();
     
 }else if($_POST["type"]==="gestionnaire")
 {
@@ -69,13 +56,15 @@ if($_POST["type"]==="candidat")
     $gestionnaire=$gestionnaireSql->getGestionnaireConnexion($pdo, new Gestionnaire($user, $pays, $mdp, "", ""));  
     
     if(empty($gestionnaire->getNomCompte())){
+        echo "here";
+        session_start();
         $_SESSION["msgErreur"]="Nom d'utilisateur ou mot de passe incorrecte";
         header("location:". $_SERVER['HTTP_REFERER']);
         exit();
     }
     
+    session_start();
     $_SESSION["gestionnaire"]=  serialize($gestionnaire);
-    $_SESSION["user"]="gestionnaire"; // l'utilisateur connecté est un gestionnaire
     
 }else if($_POST["type"]==="responsable"){
     //$responsable=new ResponsableF($user, NULL, $mdp, "", "");
@@ -84,16 +73,16 @@ if($_POST["type"]==="candidat")
     $responsable=$responsableSql->getConnexion($pdo, new ResponsableF($user, $pays, $mdp, "", ""));  
     
     if(empty($responsable->getNomCompte())){
+        echo "here";
+        session_start();
         $_SESSION["msgErreur"]="Nom d'utilisateur ou mot de passe incorrecte";
         header("location:". $_SERVER['HTTP_REFERER']);
         exit();
     }
     
+    session_start();
     $_SESSION["responsable"]=  serialize($responsable);
-    $_SESSION["user"]="responsable"; // l'utilisateur connecté est un responsable de formation
     
 }else{
-    $_SESSION["msgErreur"]="Nom d'utilisateur ou mot de passe incorrecte";
-    header("location:". $_SERVER['HTTP_REFERER']);
-    exit();
+    echo "ooi";
 }

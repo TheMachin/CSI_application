@@ -1,7 +1,6 @@
 <?php
 include "../modele/connexion.php";
 include "../modele/CandidatSql.php";
-include "../modele/DossierSql.php";
 include "../modele/PaysSql.php";
 /* 
  * To change this license header, choose License Headers in Project Properties.
@@ -11,10 +10,7 @@ include "../modele/PaysSql.php";
 $candidatTab=NULL;
 $candidatSql=new CandidatSql();
 $candidatTab=$candidatSql->getAll($pdo);
-$dossierSql=new DossierSql();
-foreach ($candidatTab as $candidat) {
-    $tabDossier[]=$dossierSql->getDossierDuCandidat($pdo, $candidat->getNom_candidat());
-}
+
 
 ?>
 <table>
@@ -23,19 +19,23 @@ foreach ($candidatTab as $candidat) {
             <th>Nom</th>
             <th>Prénom</th>
             <th>Pays</th>
-            <th>Dossier</th>
+            <th>Date de naissance</th>
+            <th>Téléphone</th>
+            <th>Courriel</th>
         </tr>
     </thead>
     <tbody>
         <?php
-            for($i=0;$i<count($candidatTab);$i++)
+            foreach($candidatTab as $candidat)
             {
-                $candidat=$candidatTab[$i];
                 ?>
                     <tr>
                         <td><?php echo $candidat->getNom(); ?></td>
                         <td><?php echo $candidat->getPrenom(); ?></td>
-                        <td><a href="../Dossier/index.php?noDossier=<?php echo $tabDossier[$i]->getNo(); ?>">acceder</a></td>
+                        <td><?php echo $candidat->getPays()->getNom_pays();?> </td>
+                        <td><?php echo $candidat->getDate_nais(); ?></td>
+                        <td><?php echo $candidat->getTelephone(); ?></td>
+                        <td><?php echo $candidat->getEmail(); ?></td>
                     </tr>
                 <?php
             }
