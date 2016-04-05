@@ -30,6 +30,7 @@ if(count($tabCanditure)>0)
                     <?php 
                     if($_SESSION["type"]!=="candidat")
                     {
+                        // truc
                         $dossier=$candidature->getDossier();
                         $candidat=$dossier->getCandidat();
                         ?>
@@ -48,7 +49,7 @@ if(count($tabCanditure)>0)
                     if($_SESSION["type"]!=="candidat")
                     {
                         ?>
-                    <td><a href="../Dossier/index.php?noDossier=<?php echo $dossier->getNo(); ?>">acceder</a></td>
+                    <td><a href="../Dossier/index.php?noDossier=<?php echo $dossier->getNo(); ?>">acceder</a></td> 
                         <?php
                     }
                     ?>
