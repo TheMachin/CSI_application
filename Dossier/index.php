@@ -1,5 +1,5 @@
 <?php
-session_start();       
+      
 // put your code here
 include("../modele/connexion.php");
 
@@ -12,20 +12,23 @@ include("../modele/FormationSql.php");
 include("../modele/ResponsableFSql.php");
 include("../modele/UniversiteSql.php");
 
-
-if(empty($_SESSION["dossier"]))
+session_start(); 
+if(empty($_SESSION["dossier"]) && empty($_GET["noDossier"]))
 {
     if(!empty($_SESSION["candidat"]))
     {
         $candidat=  unserialize($_SESSION["candidat"]);
         $dossierSql=new DossierSql();
-        $dossier=$dossierSql->getDossierById($pdo, $candidat->getNom_candidat());
+        $dossier=$dossierSql->getDossierDuCandidat($pdo, $candidat);
     }else{
         // je ne sais pas quoi faire
     }
-}else{
+}else if(!empty($_SESSION["dossier"])){
     $dossier=  unserialize($_SESSION["dossier"]);
     $candidat=$dossier->getCandidat();
+}else if(!empty($_GET["noDossier"])){
+    $dossierSql=new DossierSql();
+    $dossier=$dossierSql->getDossierById($pdo, $_GET["noDossier"]);
 }
 
 

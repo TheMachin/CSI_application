@@ -12,12 +12,22 @@ if(count($tabCanditure)>0)
 <table>
     <thead>
         <tr>
+            <?php 
+            if($_SESSION["type"]!=="candidat")
+            {
+                ?>
+                    <th>Nom candidat</th>
+                    <th>Prénom candidat</th>
+                <?php
+            }
+            ?>
             <th>Formation</th>
             <th>Niveau formation</th>
             <th>Domaine</th>
             <th>Université</th>
             <th>Ville</th>
             <th>Etat candidature</th>
+            <th>Dossier</th>
         </tr>
     </thead>
     <tbody>
@@ -51,12 +61,6 @@ if(count($tabCanditure)>0)
                         <?php
                     }
                     ?>
-                    <th><?php echo $candidature->getFormation()->getNomFormation(); ?></th>
-                    <th><?php echo $candidature->getFormation()->getNiveau(); ?></th>
-                    <th><?php echo $candidature->getFormation()->getDomaine(); ?></th>
-                    <th><?php echo $candidature->getUniversite()->getNom_univ(); ?></th>
-                    <th><?php echo $candidature->getUniversite()->getVille(); ?></th>
-                    <th><?php echo $candidature->getUniversite()->getVerificaion(); ?></th>
                 </tr>
                 <?php
             } 

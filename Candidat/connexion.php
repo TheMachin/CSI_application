@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -12,6 +15,15 @@
         <h3>
             Pas encore inscrit ? <a href="inscription.php" >Cliquez sur ce lien </a>
         </h3>
+        <div id="msgE">
+            <?php
+                if(!empty($_SESSION["msgErreur"]))
+                {
+                    echo $_SESSION["msgErreur"];
+                    unset($_SESSION["msgErreur"]);
+                }
+            ?>
+        </div>
         <form action="../Connexion/checkConnexion.php" method="post" >
             <div class="form-group">
                 <label for="user">Nom d'utilisateur : </label>
