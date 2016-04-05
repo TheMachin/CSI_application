@@ -13,7 +13,7 @@
             Pas encore inscrit ? <a href="inscription.php" >Cliquez sur ce lien </a>
         </h3>
         
-        <form action="checkConnexion.php" method="post" >
+        <form action="../Connexion/checkConnexion.php" method="post" >
             <div class="form-group">
                 <label for="user">Nom d'utilisateur : </label>
                 <input type="text" id="user" name="user" placeholder="Nom d'utilisateur" class="form-control">
