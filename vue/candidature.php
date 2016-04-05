@@ -47,7 +47,7 @@ if(count($tabCanditure)>0)
                     if($_SESSION["type"]!=="candidat")
                     {
                         ?>
-                    <td><a href="../Dossier/index.php?noDossier=<?php echo $dossier->getNo(); ?>">acceder</a></td> 
+                    <td><a href="../Dossier/index.php?noDossier=<?php echo $dossier->getNo(); ?>">acceder</a></td>
                         <?php
                     }
                     ?>
