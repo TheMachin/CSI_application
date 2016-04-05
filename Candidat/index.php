@@ -1,12 +1,5 @@
 <?php
-session_start();
 
-if(empty($_SESSION["candidat"]))
-{
-    header('Location: connexion.php');   
-}else{
-    $candidat=  unserialize($_SESSION["candidat"]);
-}
 
 
 include("../modele/connexion.php");
@@ -20,6 +13,14 @@ include("../modele/FormationSql.php");
 include("../modele/ResponsableFSql.php");
 include("../modele/UniversiteSql.php");
 
+session_start();
+$candidat=NULL;
+if(empty($_SESSION["candidat"]))
+{
+    header('Location: connexion.php');   
+}else{
+    $candidat=  unserialize($_SESSION["candidat"]);
+}
 
 $candidatureSql=new CandidatureSql();
 $tabCanditure=$candidatureSql->getCandidatureByUser($pdo, $candidat->getNom_candidat());
