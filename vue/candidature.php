@@ -26,11 +26,9 @@ if(count($tabCanditure)>0)
             {
                ?>
                 <tr>
-<<<<<<< HEAD
                     <?php 
                     if($_SESSION["type"]!=="candidat")
                     {
-                        // truc
                         $dossier=$candidature->getDossier();
                         $candidat=$dossier->getCandidat();
                         ?>
@@ -53,14 +51,12 @@ if(count($tabCanditure)>0)
                         <?php
                     }
                     ?>
-=======
                     <th><?php echo $candidature->getFormation()->getNomFormation(); ?></th>
                     <th><?php echo $candidature->getFormation()->getNiveau(); ?></th>
                     <th><?php echo $candidature->getFormation()->getDomaine(); ?></th>
                     <th><?php echo $candidature->getUniversite()->getNom_univ(); ?></th>
                     <th><?php echo $candidature->getUniversite()->getVille(); ?></th>
                     <th><?php echo $candidature->getUniversite()->getVerificaion(); ?></th>
->>>>>>> origin/master
                 </tr>
                 <?php
             } 
