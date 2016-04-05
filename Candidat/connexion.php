@@ -12,7 +12,6 @@
         <h3>
             Pas encore inscrit ? <a href="inscription.php" >Cliquez sur ce lien </a>
         </h3>
-        
         <form action="../Connexion/checkConnexion.php" method="post" >
             <div class="form-group">
                 <label for="user">Nom d'utilisateur : </label>

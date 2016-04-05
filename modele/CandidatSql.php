@@ -34,9 +34,8 @@ class CandidatSql {
         $req->bindValue(2,$c->getMdp());
         $req->execute();
         $row=$req->fetch();
-            $pays=new Pays($row["NO_PAYS"], "");
             $paysSql=new PaysSql();
-            $pays=$paysSql->getPaysById($pdo, $pays->getId());
+            $pays=$paysSql->getPaysById($pdo,$row["NO_PAYS"]);
             $candidat=new Candidat($row["NOM_CANDIDAT"], $pays, $row["MDP"], $row["NOM"], $row["PRENOM"], $row["DATE_NAIS"], $row["EMAIL"], $row["TELEPHONE"]);
         return $candidat;
     }
