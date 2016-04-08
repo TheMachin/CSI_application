@@ -70,4 +70,37 @@ class CandidatSql {
         
     }
     
+    function ajoutCandidat($pdo,  Candidat $c)
+    {
+        $no=0;
+        $stmt = $pdo->prepare("CALL sp_ajout_etudiant (:nomCompte,:noPays,:mdp,:nom,:prenom,:date,:mail,:tel) ");
+        $nomCompte=$c->getNom_candidat();
+        $stmt->bindParam(":nomCompte", $nomCompte);
+        $idPays=$c->getPays()->getId();
+        $stmt->bindParam(":noPays", $idPays);
+        $mdp=$c->getMdp();
+        $stmt->bindParam(":mdp", $mdp);
+        $nom=$c->getNom();
+        $stmt->bindParam(":nom", $nom);
+        $prenom=$c->getPrenom();
+        $stmt->bindParam(":prenom", $prenom);
+        $date=$c->getDate_nais();
+        $stmt->bindParam(":date", $date);
+        $email=$c->getEmail();
+        $stmt->bindParam(":mail", $email);
+        $tel=$c->getTelephone();
+        $stmt->bindParam(":tel", $tel);
+        //$stmt->bindParam(":no", $no);
+
+        // appel de la procédure stockée
+        $stmt->execute();
+        $row=$stmt->fetch();
+        /*var_dump($pdo->errorInfo());
+        echo($stmt->errorCode());
+        var_dump($stmt->errorInfo());
+        return $no;*/
+        return $row['id'];
+
+    }
+    
 }

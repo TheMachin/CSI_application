@@ -17,6 +17,7 @@ class Dossier {
     private $candidat;
     private $gestionnaire;
     private $verification;
+    private $tabD;
     
     function __construct($no,  Candidat $candidat, $gestionnaire, $verification) {
         $this->no = $no;
@@ -28,8 +29,15 @@ class Dossier {
     function getNo() {
         return $this->no;
     }
+    function getTabD() {
+        return $this->tabD;
+    }
 
-    function getCandidat() {
+    function setTabD($tabD) {
+        $this->tabD = $tabD;
+    }
+
+        function getCandidat() {
         return $this->candidat;
     }
 

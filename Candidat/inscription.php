@@ -15,6 +15,16 @@ $tabPays=$paysSql->getAllPays($pdo);
     <head>
         <meta charset="UTF-8">
         <title>Inscription Candidat</title>
+        <script>
+            var i=1;
+            function plus()
+            {
+                i++;
+                var content = document.getElementById('listDoc').innerHTML;
+                document.getElementById('listDoc').innerHTML = content+'<br><div><label for="tel">Nom du document '+i+' : </label><input type="text" id="document" name="document'+i+'" placeholder="Nom du document" class="form-control"><select id="listType" name="type'+i+'"><option value="diplome">Justificatif de diplôme</option><option value="note">Relevé de note</option></select></div>';
+                document.getElementById("nbreDoc").value = i;
+            } 
+        </script>
     </head>
     <body>
         <h1>
@@ -68,11 +78,33 @@ $tabPays=$paysSql->getAllPays($pdo);
                 <label for="tel">Numéro de téléphone : </label>
                 <input type="text" id="pwd" name="tel" placeholder="" class="form-control">
             </div>
-            
+            <br><br>
             <div class="doc">
                 
+                <div>
+                        <label for="tel">Nom du CV : </label>
+                        <input type="text" id="document" name="CV" placeholder="Nom du CV" class="form-control">
+                </div>
+                <br>
+                <div>
+                        <label for="tel">Nom de la lettre de motivation : </label>
+                        <input type="text" id="document" name="lettre" placeholder="Nom de la lettre de motivation" class="form-control">
+                </div>
+                <br>
+                <input type="button" onclick="plus();" value="Cliquer ici pour ajouter un justificatif de diplôme ou un relévé de note">
+                <input type="hidden" id="nbreDoc" name="nbreDoc" value="1">
+                <div id="listDoc">
+                    <div>
+                        <label for="tel">Nom du document 1 : </label>
+                        <input type="text" id="document" name="document1" placeholder="Nom du document" class="form-control">
+                        <select id="listType" name="type1">
+                            <option value="diplome">Justificatif de diplôme</option>
+                            <option value="note">Relevé de note</option>
+                        </select>
+                    </div>
+                </div>
             </div>
-            
+            <br>
             <div>
 		<input type="submit" id="valider" name="valider" value="Valider" class="btn btn-success">
             </div>
