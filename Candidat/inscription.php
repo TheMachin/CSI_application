@@ -6,6 +6,9 @@ include("../modele/PaysSql.php");
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
+session_start();
+
 $paysSql=new PaysSql();
  
 $tabPays=$paysSql->getAllPays($pdo);
@@ -34,7 +37,15 @@ $tabPays=$paysSql->getAllPays($pdo);
         <h3>
             Déjà inscrit ? <a href="connexion.php" >Cliquez sur ce lien </a>
         </h3>
-        
+        <div id="msgE">
+            <?php
+                if(!empty($_SESSION["msgErreur"]))
+                {
+                    echo $_SESSION["msgErreur"];
+                    unset($_SESSION["msgErreur"]);
+                }
+            ?>
+        </div>
         <form action="traitInscription.php" method="post" >
             <div class="form-group">
                 <label for="user">Nom d'utilisateur (qui sera utilisé pour se connecter) : </label>

@@ -9,6 +9,9 @@ include("../modele/DocumentSql.php");
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */ 
+
+session_start();
+
 $bool=TRUE;
 $pays=new Pays(0, "");
 $candidat=new Candidat("",$pays , "", "", "", "", "", "");
@@ -125,5 +128,12 @@ for($i=1;$i<$nbre+1;$i++)
     $docSql=new DocumentSql();
     $docSql->insertDocument($pdo, $dossier);
 
+    
+    /**
+     * mise en place des sessions
+     */
+    $_SESSION["dossier"]=  serialize($dossier);
+    $_SESSION["candidat"]=  serialize($candidat);
+    $_SESSION["type"]="candidat";
 
-
+    header('Location: ../Candidat/index.php');

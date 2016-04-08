@@ -23,15 +23,23 @@ if(empty($_SESSION["candidat"]))
 
 $candidatureSql=new CandidatureSql();
 $tabCanditure=$candidatureSql->getCandidatureByUser($pdo, $candidat->getNom_candidat());
-if(count($tabCanditure)>0)
+
+
+if(empty($_SESSION["dossier"]))
 {
-    $dossier=$tabCanditure[0]->getDossier();
+    if(count($tabCanditure)>0)
+    {
+        $dossier=$tabCanditure[0]->getDossier();
+    }else{
+        $dossiersql=new DossierSql();
+        $dossier=$dossiersql->getDossierDuCandidat($pdo, $candidat->getNom_candidat());
+    }
+    $_SESSION["dossier"]=  serialize($dossier);
 }else{
-    $dossiersql=new DossierSql();
-    $dossier=$dossiersql->getDossierDuCandidat($pdo, $candidat->getNom_candidat());
+    $dossier=  unserialize($_SESSION["dossier"]);
 }
 
-$_SESSION["dossier"]=  serialize($dossier);
+
 
 ?>
 <!DOCTYPE html>
