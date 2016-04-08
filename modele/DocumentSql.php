@@ -30,6 +30,22 @@ class DocumentSql {
     function insertDocument($pdo,Dossier $d)
     {
         $tabD=$d->getTabD();
+        foreach ($tabD as $doc) {
+            try{
+                $stmt = $pdo->prepare("INSERT INTO DOCUMENT (NOM_DOC,TYPE_DOC) VALUE (?,?)");
+                $stmt -> bindValue(1,$doc->getNom());
+                $stmt -> bindValue(2,$doc->getType());
+                $stmt->execute();
+                $id=$pdo->lastInsertId();
+                $stmt = $pdo->prepare("INSERT INTO CONTIENT_DOCUMENT (NO_DOC,NO_DOSSIER) VALUE (?,?)");
+                $stmt -> bindValue(1,$id);
+                $stmt -> bindValue(2,$d->getNo());
+                $stmt->execute();
+                
+            }catch(Exception $e){
+                echo $e->getMessage();
+            }
+        }
         
         
     }

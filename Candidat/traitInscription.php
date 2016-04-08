@@ -121,6 +121,9 @@ for($i=1;$i<$nbre+1;$i++)
     $candidatSql=new CandidatSql();
     
     $dossier->setNo($candidatSql->ajoutCandidat($pdo, $candidat));
+    
+    $docSql=new DocumentSql();
+    $docSql->insertDocument($pdo, $dossier);
 
 
 
