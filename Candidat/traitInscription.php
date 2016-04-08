@@ -8,7 +8,7 @@ include("../modele/DocumentSql.php");
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
- */
+ */ 
 $bool=TRUE;
 $pays=new Pays(0, "");
 $candidat=new Candidat("",$pays , "", "", "", "", "", "");
