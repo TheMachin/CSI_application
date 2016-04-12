@@ -66,7 +66,7 @@ and open the template in the editor.
         </div>
         
         <div id="candidater">
-            
+            <a href="candidater.php">Ajouter une candidature</a>
         </div>
     </body>
 </html>
