@@ -13,7 +13,7 @@ if(count($tabCanditure)>0)
     <thead>
         <tr>
             <?php 
-            if($_SESSION["type"]!=="candidat")
+            if($_SESSION["user"]!=="candidat")
             {
                 ?>
                     <th>Nom candidat</th>
@@ -27,7 +27,17 @@ if(count($tabCanditure)>0)
             <th>Université</th>
             <th>Ville</th>
             <th>Etat candidature</th>
-            <th>Dossier</th>
+            
+            <?php 
+            if($_SESSION["user"]!=="candidat")
+            {
+                ?>
+                    <th>Dossier</th>
+                    <th>Accepter</th>
+                    <th>Refuser</th>
+                <?php
+            }
+            ?>
         </tr>
     </thead>
     <tbody>
@@ -37,7 +47,7 @@ if(count($tabCanditure)>0)
                ?>
                 <tr>
                     <?php 
-                    if($_SESSION["type"]!=="candidat")
+                    if($_SESSION["user"]!=="candidat")
                     {
                         $dossier=$candidature->getDossier();
                         $candidat=$dossier->getCandidat();
@@ -54,10 +64,12 @@ if(count($tabCanditure)>0)
                     <td><?php echo $candidature->getUniversite()->getVille(); ?></td>
                     <td><?php echo $candidature->getUniversite()->getVerificaion(); ?></td>
                     <?php 
-                    if($_SESSION["type"]!=="candidat")
+                    if($_SESSION["user"]!=="candidat")
                     {
                         ?>
-                    <td><a href="../Dossier/index.php?noDossier=<?php echo $dossier->getNo(); ?>">acceder</a></td>
+                        <td><a href="../Dossier/index.php?noDossier=<?php echo $dossier->getNo(); ?>">acceder</a></td>
+                        <td><a href="../Dossier/index.php?noCand=<?php echo $candidature->getNo(); ?>&avis=P">Accepter candidature</a></td>
+                        <td><a href="../Dossier/index.php?noCand=<?php echo $candidature->getNo(); ?>&avis=R">Refuser candidature</a></td>
                         <?php
                     }
                     ?>

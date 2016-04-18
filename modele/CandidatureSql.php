@@ -40,4 +40,64 @@ class CandidatureSql {
         }
         return $tabCandidature;
     }
+    
+    function getCandidatureById($pdo,$id)
+    {
+        $tabCandidature=array();
+        $dossier=NULL;
+        $req = $pdo->prepare("SELECT * FROM CANDIDATURE WHERE NO_CANDIDATURE=?");
+        $req->bindValue(1,$id);
+        $req->execute();
+        foreach ($req as $row) {
+            if($dossier==NULL)
+            {
+                $dossiersql=new DossierSql();
+                $dossier=$dossiersql->getDossierById($pdo, $row['NO_DOSSIER']);
+            }
+            
+            $formationsql=new FormationSql();
+            $candidature=new Candidature($row["NO_CANDIDATURE"], $row["NO_DOC_LETTRE_MOTIVATION"],$dossier ,$formationsql->getById($pdo, $row["NO_FORMATION"]), $row['VERIFICATION'], $row["DATE"]);
+            array_push($tabCandidature, $candidature);
+        }
+        return $tabCandidature;
+    }
+    
+    function callProcedureSiDateDepasse($pdo)
+    {
+        $stmt = $pdo->prepare("CALL sp_check_date_candidature () ");
+        // appel de la procédure stockée
+        $stmt->execute();
+
+    }
+    
+    function callProcedureRappel($pdo)
+    {
+        $tabR=array();
+        $stmt = $pdo->prepare("CALL sp_candidature_date_rappel () ");
+        // appel de la procédure stockée
+        $stmt->execute();
+        foreach ($stmt as $row) {
+            $tabR[]=[$row["NO_CANDIDATURE"],$row["VERIFICATION"]];
+        }
+        return $tabR;
+    }
+    
+    function donnerAvis($pdo,  Candidature $c)
+    {
+        try{
+            $stmt = $pdo->prepare("UPDATE candidature SET VERIFICATION=? WHERE No_CANDIATURE=?");
+            $stmt->bindValue(1,$c->getVerificaion());
+            $stmt->bindValue(2,$c->getNo());
+            $stmt->execute();
+            
+        }  catch (PDOException $e)
+        {
+            echo $e->getMessage();
+            $stmt->debugDumpParams();
+        }catch (Exception $e)
+        {
+            echo $e->getMessage();
+            $stmt->debugDumpParams();
+        }
+    }
 }

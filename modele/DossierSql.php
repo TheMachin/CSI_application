@@ -36,4 +36,29 @@ class DossierSql {
             $dossier= new Dossier($row["NO_DOSSIER"], $candidatSql->getCandidatByNomUser($pdo, $row["NOM_CANDIDAT"]), $gestionnaireSql->getGestionnaireByNomUser($pdo, $row["NOM_GESTIONNAIRE"]), $row["VERIFCATION"]);
         return $dossier;
     }
+    
+    /**
+     * Mettre à jour le champ verifcation d'un dossier
+     * Un trigger va refuser les candidatures du candidat si l'avis est négatif
+     * @param type $pdo connexion  à la bdd
+     * @param Dossier $d Classe Dossier
+     */
+    function donnerAvis($pdo,Dossier $d)
+    {
+        $g=$d->getGestionnaire();
+        try{
+            $stmt = $pdo->prepare("UPDATE dossier SET NOM_GESTIONNAIRE=?,VERIFCATION=? WHERE No_DOSSIER=?");
+            $stmt->bindValue(1,$g->getNomCompte());
+            $stmt->bindValue(2,$d->getVerification());
+            $stmt->bindValue(3,$d->getNo());
+            $stmt->execute();
+            $stmt->debugDumpParams();
+        }  catch (PDOException $e)
+        {
+            echo $e->getMessage();
+        }catch (Exception $e)
+        {
+            echo $e->getMessage();
+        }
+    }
 }

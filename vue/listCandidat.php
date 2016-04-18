@@ -36,7 +36,7 @@ foreach ($candidatTab as $candidat) {
                         <td><?php echo $candidat->getNom(); ?></td>
                         <td><?php echo $candidat->getPrenom(); ?></td>
                         <td><?php echo $candidat->getPays()->getNom_pays();?> </td>
-                        <td><a href="../Dossier/index.php?noDossier=<?php echo $tabDossier[$i]->getNo(); ?>">acceder</a></td>
+                        <td><a href="../Dossier/index.php?noDossier=<?php echo $tabDossier[$i]->getNo(); ?>">acceder au dossier</a></td>
                     </tr>
                 <?php
             }
