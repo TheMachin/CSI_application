@@ -41,12 +41,78 @@ class CandidatureSql {
         return $tabCandidature;
     }
     
+    function getCandidatureByUserAndEtat($pdo,$user,$etat)
+    {
+        $tabCandidature=array();
+        $dossier=NULL;
+        $req = $pdo->prepare("SELECT * FROM CANDIDATURE c, DOSSIER d WHERE c.NO_DOSSIER=d.NO_DOSSIER AND NOM_CANDIDAT=? AND VERIFICATION=?");
+        $req->bindValue(1,$user);
+        $req->bindValue(2,$etat);
+        $req->execute();
+        foreach ($req as $row) {
+            if($dossier==NULL)
+            {
+                $dossiersql=new DossierSql();
+                $dossier=$dossiersql->getDossierById($pdo, $row['NO_DOSSIER']);
+            }
+            
+            $formationsql=new FormationSql();
+            $candidature=new Candidature($row["NO_CANDIDATURE"], $row["NO_DOC_LETTRE_MOTIVATION"],$dossier ,$formationsql->getById($pdo, $row["NO_FORMATION"]), $row['VERIFICATION'], $row["DATE"]);
+            array_push($tabCandidature, $candidature);
+        }
+        return $tabCandidature;
+    }
+    
     function getCandidatureById($pdo,$id)
     {
         $tabCandidature=array();
         $dossier=NULL;
         $req = $pdo->prepare("SELECT * FROM CANDIDATURE WHERE NO_CANDIDATURE=?");
         $req->bindValue(1,$id);
+        $req->execute();
+        foreach ($req as $row) {
+            if($dossier==NULL)
+            {
+                $dossiersql=new DossierSql();
+                $dossier=$dossiersql->getDossierById($pdo, $row['NO_DOSSIER']);
+            }
+            
+            $formationsql=new FormationSql();
+            $candidature=new Candidature($row["NO_CANDIDATURE"], $row["NO_DOC_LETTRE_MOTIVATION"],$dossier ,$formationsql->getById($pdo, $row["NO_FORMATION"]), $row['VERIFICATION'], $row["DATE"]);
+            array_push($tabCandidature, $candidature);
+        }
+        return $tabCandidature;
+    }
+    
+    function getCandidatureByIdAndEtat($pdo,$id,$etat)
+    {
+        $tabCandidature=array();
+        $dossier=NULL;
+        $req = $pdo->prepare("SELECT * FROM CANDIDATURE WHERE NO_CANDIDATURE=? AND VERIFICATION=?");
+        $req->bindValue(1,$id);
+        $req->bindValue(2,$etat);
+        $req->execute();
+        foreach ($req as $row) {
+            if($dossier==NULL)
+            {
+                $dossiersql=new DossierSql();
+                $dossier=$dossiersql->getDossierById($pdo, $row['NO_DOSSIER']);
+            }
+            
+            $formationsql=new FormationSql();
+            $candidature=new Candidature($row["NO_CANDIDATURE"], $row["NO_DOC_LETTRE_MOTIVATION"],$dossier ,$formationsql->getById($pdo, $row["NO_FORMATION"]), $row['VERIFICATION'], $row["DATE"]);
+            array_push($tabCandidature, $candidature);
+        }
+        return $tabCandidature;
+    }
+    
+    function getCandidatureByFormationAndEtat($pdo,Formation $f,$etat)
+    {
+        $tabCandidature=array();
+        $dossier=NULL;
+        $req = $pdo->prepare("SELECT * FROM CANDIDATURE WHERE NO_FORMATION=? AND VERIFICATION=?");
+        $req->bindValue(1,$f->getNo());
+        $req->bindValue(2,$etat);
         $req->execute();
         foreach ($req as $row) {
             if($dossier==NULL)

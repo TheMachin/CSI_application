@@ -22,7 +22,7 @@ if(empty($_SESSION["candidat"]))
 }
 
 $candidatureSql=new CandidatureSql();
-$tabCanditure=$candidatureSql->getCandidatureByUser($pdo, $candidat->getNom_candidat());
+
 
 
 if(empty($_SESSION["dossier"]))
@@ -60,9 +60,24 @@ and open the template in the editor.
         </div>
         <?php
         // put your code here
+            
         ?>
-        <div id="candidature">
-            <?php include("../vue/candidature.php"); ?>
+        <div id="candidature A">
+            <?php 
+                $tabCanditure=$candidatureSql->getCandidatureByUserAndEtat($pdo, $candidat->getNom_candidat(),"accepté");
+                include("../vue/candidature.php"); ?>
+        </div>
+        
+        <div id="candidature E">
+            <?php 
+                $tabCanditure=$candidatureSql->getCandidatureByUserAndEtat($pdo, $candidat->getNom_candidat(),"en cours");
+                include("../vue/candidature.php"); ?>
+        </div>
+        
+        <div id="candidature R">
+            <?php 
+                $tabCanditure=$candidatureSql->getCandidatureByUserAndEtat($pdo, $candidat->getNom_candidat(),"refusé");
+                include("../vue/candidature.php"); ?>
         </div>
         
         <div id="candidater">
