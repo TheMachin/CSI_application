@@ -50,11 +50,11 @@ if(count($tabCanditure)>0)
                     <td><?php echo $candidature->getFormation()->getNomFormation(); ?></td>
                     <td><?php echo $candidature->getFormation()->getNiveau(); ?></td>
                     <td><?php echo $candidature->getFormation()->getDomaine(); ?></td>
-                    <td><?php echo $candidature->getUniversite()->getNom_univ(); ?></td>
-                    <td><?php echo $candidature->getUniversite()->getVille(); ?></td>
-                    <td><?php echo $candidature->getUniversite()->getVerificaion(); ?></td>
+                    <td><?php echo $candidature->getFormation()->getUniversite()->getNom_univ(); ?></td>
+                    <td><?php echo $candidature->getFormation()->getUniversite()->getVille(); ?></td>
+                    <td><?php echo $candidature->getVerificaion(); ?></td>
                     <?php 
-                    if($_SESSION["type"]!=="candidat")
+                    if($_SESSION["type"]==="candidat")
                     {
                         ?>
                     <td><a href="../Dossier/index.php?noDossier=<?php echo $dossier->getNo(); ?>">acceder</a></td>

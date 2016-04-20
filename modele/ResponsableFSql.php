@@ -22,7 +22,7 @@ class ResponsableFSql {
             $pays=new Pays($row["NO_PAYS"], "");
             $paysSql=new PaysSql();
             $pays->setNom_pays($paysSql->getPaysById($pdo, $pays->getId()));
-            $gestionnaire=new GestiResponsableF($row["NOM_COMPTE"], $pays, $row["MDP"], $row["NOM"], $row["PRENOM"]);
+            $gestionnaire=new ResponsableF($row["NOM_COMPTE"], $pays, $row["MDP"], $row["NOM"], $row["PRENOM"]);
         return $gestionnaire;
     }
     
