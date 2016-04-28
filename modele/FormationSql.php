@@ -21,7 +21,7 @@ class FormationSql {
         foreach ($req as $row) {
             $responsableql=new ResponsableFSql();
             $univSql=new UniversiteSql();
-            $formation=new Formation($row["NO_FORMATION"], $responsableql->getByNomUser($pdo, $row["NOM_COMPTE_RESPFOM"]), $univSql->getById($pdo, $row["NO_UNIV"]), $row["NOM_FORMATION"], $row["DOMAINE"], $row["NIVEAU"], $row["DATE_LIMITE"], $row["NBRE_PLACE_LIMITE"]);
+            $formation=new Formation($row["NO_FORMATION"], $responsableql->getByNomUser($pdo, $row["NOM_COMPTE_RESPFORM"]), $univSql->getById($pdo, $row["NO_UNIV"]), $row["NOM_FORMATION"], $row["DOMAINE"], $row["NIVEAU"], $row["DATE_LIMITE"], $row["NBRE_PLACE_LIMITE"]);
             array_push($tab, $formation);
         }
         return $tab;
@@ -35,7 +35,7 @@ class FormationSql {
         $row=$req->fetch();
         $responsableql=new ResponsableFSql();
         $univSql=new UniversiteSql();
-        $formation=new Formation($row["NO_FORMATION"], $responsableql->getByNomUser($pdo, $row["NOM_COMPTE_RESPFOM"]), $univSql->getById($pdo, $row["NO_UNIV"]), $row["NOM_FORMATION"], $row["DOMAINE"], $row["NIVEAU"], $row["DATE_LIMITE"], $row["NBRE_PLACE_LIMITE"]);
+        $formation=new Formation($row["NO_FORMATION"], $responsableql->getByNomUser($pdo, $row["NOM_COMPTE_RESPFORM"]), $univSql->getById($pdo, $row["NO_UNIV"]), $row["NOM_FORMATION"], $row["DOMAINE"], $row["NIVEAU"], $row["DATE_LIMITE"], $row["NBRE_PLACE_LIMITE"]);
         return $formation;
     }
     

@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <?php
     include("../modele/connexion.php"); 
+    
+    include("../modele/CandidatSql.php");
+    include("../modele/GestionnaireSql.php");
+    include("../modele/DossierSql.php");
+    include("../modele/PaysSql.php");
+    include("../modele/CandidatureSql.php");
+    include("../modele/FormationSql.php");
+    include("../modele/ResponsableFSql.php");
+    include("../modele/UniversiteSql.php");
 ?>
 <html>
     <head>
@@ -39,7 +48,7 @@
                         echo '<td>'. $donnees['NIVEAU'] . '</td>';
                         echo '<td>'. $donnees['DATE_LIMITE'] . '</td>';
                         echo '<td>'. $donnees['NBRE_PLACE_LIMITE'] . '</td>';
-                        echo '<td><a href="candidater.php?ajout='. $donnees['NOM_UNIV'] . '>Ajouter</a></td>';
+                        echo '<td><a href="ajoutCandidature.php?ajout='. $donnees['NOM_UNIV'] . '">Ajouter</a></td>';
                         echo '</tr>';
                     }
                 ?>

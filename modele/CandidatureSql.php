@@ -35,7 +35,7 @@ class CandidatureSql {
             }
             
             $formationsql=new FormationSql();
-            $candidature=new Candidature($row["NO_CANDIDATURE"], $row["NO_DOC_LETTRE_MOTIVATION"],$dossier ,$formationsql->getById($pdo, $row["NO_FORMATION"]), $row['VERIFICATION'], $row["DATE"]);
+            $candidature=new Candidature($row["NO_CANDIDATURE"], $row["NO_DOC_LETTRE_MOTIVATION"],$dossier ,$formationsql->getById($pdo, $row["NO_FORMATION"]), $row['VERIFCATION'], $row["DATE"]);
             array_push($tabCandidature, $candidature);
         }
         return $tabCandidature;
