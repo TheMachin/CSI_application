@@ -14,13 +14,21 @@ include("../modele/ResponsableFSql.php");
 include("../modele/UniversiteSql.php");
 
 session_start(); 
+
+if(!empty($_SESSION["candidat"]))
+    {
+        $candidat=  unserialize($_SESSION["candidat"]);
+        $dossierSql=new DossierSql();
+        $dossier=$dossierSql->getDossierDuCandidat($pdo, $candidat->getNom_candidat());
+    }
+
 if(empty($_SESSION["dossier"]) && empty($_GET["noDossier"]))
 {
     if(!empty($_SESSION["candidat"]))
     {
         $candidat=  unserialize($_SESSION["candidat"]);
         $dossierSql=new DossierSql();
-        $dossier=$dossierSql->getDossierDuCandidat($pdo, $candidat);
+        $dossier=$dossierSql->getDossierDuCandidat($pdo, $candidat->getNom_candidat());
     }else{
         // je ne sais pas quoi faire
     }
@@ -32,9 +40,10 @@ if(empty($_SESSION["dossier"]) && empty($_GET["noDossier"]))
     $dossier=$dossierSql->getDossierById($pdo, $_GET["noDossier"]);
     $candidat=$dossier->getCandidat();
 }
-
+$_SESSION["candidat"]=  serialize($candidat);
 
 $candidatureSql=new CandidatureSql();
+var_dump($candidat);
 $tabCanditure=$candidatureSql->getCandidatureByUser($pdo, $candidat->getNom_candidat());
 if(count($dossier->getTabD())==0)
 {

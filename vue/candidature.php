@@ -71,9 +71,9 @@ if(count($tabCanditure)>0)
                         ?>
                         <td><a href="../Dossier/index.php?noDossier=<?php echo $dossier->getNo(); ?>">acceder</a></td>
                         <?php if($_SESSION["user"]!=="gestionnaire"){ ?>
-                        <td><a href="../Dossier/index.php?noCand=<?php echo $candidature->getNo(); ?>&avis=P">Accepter candidature</a></td>
+                        <td><a href="../Candidature/avis.php?noCand=<?php echo $candidature->getNo(); ?>&avis=P">Accepter candidature</a></td>
                         <?php } ?>
-                        <td><a href="../Dossier/index.php?noCand=<?php echo $candidature->getNo(); ?>&avis=R">Refuser candidature</a></td>
+                        <td><a href="../Candidature/avis.php?noCand=<?php echo $candidature->getNo(); ?>&avis=R">Refuser candidature</a></td>
                         <?php
                     }
                     ?>

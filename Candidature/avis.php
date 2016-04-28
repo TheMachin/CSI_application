@@ -2,6 +2,11 @@
 include("../modele/connexion.php");
 
 include("../modele/CandidatureSql.php");
+include("../modele/CandidatSql.php");
+include("../modele/PaysSql.php");
+include("../modele/FormationSql.php");
+include("../modele/ResponsableFSql.php");
+include("../modele/UniversiteSql.php");
 include("../modele/GestionnaireSql.php");
 include("../modele/DossierSql.php");
 /* 
@@ -27,6 +32,7 @@ if(isset($_GET["noCand"]))
 {
     $candidature=$cSql->getCandidatureById($pdo, $_GET["noCand"]);
 }else{
+    echo "ouuio";
     header("location:". $_SERVER['HTTP_REFERER']);
     exit();
 }
@@ -41,7 +47,6 @@ if($_GET["avis"]==="P")
     exit();
 }
 
-$candidature->setDate(date());
 
 $cSql->donnerAvis($pdo, $candidature);
 

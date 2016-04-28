@@ -41,13 +41,13 @@ class FormationSql {
     
     function getByResponsable($pdo,$respF)
     {
-        $req = $pdo->prepare("SELECT * FROM FORMATION WHERE NOM_COMPTE_RESPFOM=?");
+        $req = $pdo->prepare("SELECT * FROM FORMATION WHERE NOM_COMPTE_RESPFORM=?");
         $req->bindValue(1,$respF);
         $req->execute();
         $row=$req->fetch();
         $responsableql=new ResponsableFSql();
         $univSql=new UniversiteSql();
-        $formation=new Formation($row["NO_FORMATION"], $responsableql->getByNomUser($pdo, $row["NOM_COMPTE_RESPFOM"]), $univSql->getById($pdo, $row["NO_UNIV"]), $row["NOM_FORMATION"], $row["DOMAINE"], $row["NIVEAU"], $row["DATE_LIMITE"], $row["NBRE_PLACE_LIMITE"]);
+        $formation=new Formation($row["NO_FORMATION"], $responsableql->getByNomUser($pdo, $row["NOM_COMPTE_RESPFORM"]), $univSql->getById($pdo, $row["NO_UNIV"]), $row["NOM_FORMATION"], $row["DOMAINE"], $row["NIVEAU"], $row["DATE_LIMITE"], $row["NBRE_PLACE_LIMITE"]);
         return $formation;
     }
 }

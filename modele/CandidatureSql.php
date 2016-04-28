@@ -65,12 +65,11 @@ class CandidatureSql {
     
     function getCandidatureById($pdo,$id)
     {
-        $tabCandidature=array();
         $dossier=NULL;
         $req = $pdo->prepare("SELECT * FROM CANDIDATURE WHERE NO_CANDIDATURE=?");
         $req->bindValue(1,$id);
         $req->execute();
-        foreach ($req as $row) {
+        $row=$req->fetch();
             if($dossier==NULL)
             {
                 $dossiersql=new DossierSql();
@@ -79,9 +78,7 @@ class CandidatureSql {
             
             $formationsql=new FormationSql();
             $candidature=new Candidature($row["NO_CANDIDATURE"], $row["NO_DOC_LETTRE_MOTIVATION"],$dossier ,$formationsql->getById($pdo, $row["NO_FORMATION"]), $row['VERIFCATION'], $row["DATE"]);
-            array_push($tabCandidature, $candidature);
-        }
-        return $tabCandidature;
+            return $candidature;
     }
     
     function getCandidatureByIdAndEtat($pdo,$id,$etat)
@@ -151,7 +148,7 @@ class CandidatureSql {
     function donnerAvis($pdo,  Candidature $c)
     {
         try{
-            $stmt = $pdo->prepare("UPDATE candidature SET VERIFCATION=? WHERE No_CANDIATURE=?");
+            $stmt = $pdo->prepare("UPDATE candidature SET VERIFCATION=?, DATE=NOW() WHERE NO_CANDIDATURE=? ");
             $stmt->bindValue(1,$c->getVerificaion());
             $stmt->bindValue(2,$c->getNo());
             $stmt->execute();
