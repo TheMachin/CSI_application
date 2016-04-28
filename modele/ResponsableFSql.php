@@ -15,28 +15,22 @@ class ResponsableFSql {
     //put your code here
     function getByNomUser($pdo,$user)
     {
-        $req = $pdo->prepare("SELECT * FROM resp_form WHERE NOM_COMPTE=?");
+        $req = $pdo->prepare("SELECT * FROM resp_form WHERE NOM_COMPTE_RESPFORM=?");
         $req->bindValue(1,$user);
         $req->execute();
         $row=$req->fetch();
-            $pays=new Pays($row["NO_PAYS"], "");
-            $paysSql=new PaysSql();
-            $pays->setNom_pays($paysSql->getPaysById($pdo, $pays->getId()));
-            $gestionnaire=new ResponsableF($row["NOM_COMPTE"], $pays, $row["MDP"], $row["NOM"], $row["PRENOM"]);
+            $gestionnaire=new ResponsableF($row["NOM_COMPTE_RESPFORM"], $row["MDP"], $row["NOM"], $row["PRENOM"],$row["EMAIL"]);
         return $gestionnaire;
     }
     
     function getConnexion($pdo, ResponsableF $g)
     {
-        $req = $pdo->prepare("SELECT * FROM resp_form WHERE NOM_COMPTE=? AND MDP=?");
+        $req = $pdo->prepare("SELECT * FROM resp_form WHERE NOM_COMPTE_RESPFORM=? AND MDP=?");
         $req->bindValue(1,$g->getNomCompte());
         $req->bindValue(2,$g->getMdp());
         $req->execute();
         $row=$req->fetch();
-            $pays=new Pays($row["NO_PAYS"], "");
-            $paysSql=new PaysSql();
-            $pays->setNom_pays($paysSql->getPaysById($pdo, $pays->getId()));
-            $gestionnaire=new ResponsableF($row["NOM_COMPTE"], $pays, $row["MDP"], $row["NOM"], $row["PRENOM"]);
+            $gestionnaire=new ResponsableF($row["NOM_COMPTE_RESPFORM"], $row["MDP"], $row["NOM"], $row["PRENOM"],$row["EMAIL"]);
         return $gestionnaire;
     }
 }

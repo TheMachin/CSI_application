@@ -76,14 +76,14 @@ if($_POST["type"]==="candidat")
 
     $_SESSION["gestionnaire"]=  serialize($gestionnaire);
     $_SESSION["user"]="gestionnaire"; // l'utilisateur connecté est un gestionnaire
-    header('Location: ../Gestionnaire/indexGest.php');
+    header('Location: ../Gestionnaire/index.php');
     exit();
     
 }else if($_POST["type"]==="responsable"){
     //$responsable=new ResponsableF($user, NULL, $mdp, "", "");
     $responsableSql=new ResponsableFSql();
     $pays=new Pays(0, "");
-    $responsable=$responsableSql->getConnexion($pdo, new ResponsableF($user, $pays, $mdp, "", ""));  
+    $responsable=$responsableSql->getConnexion($pdo, new ResponsableF($user, $mdp, "", "",""));  
     
     if(empty($responsable->getNomCompte())){
         $_SESSION["msgErreur"]="Nom d'utilisateur ou mot de passe incorrecte";
@@ -94,6 +94,8 @@ if($_POST["type"]==="candidat")
 
     $_SESSION["responsable"]=  serialize($responsable);
     $_SESSION["user"]="responsable"; // l'utilisateur connecté est un responsable de formation
+    header('Location: ../RespForm/index.php');
+    exit();
     
 }else{
     $_SESSION["msgErreur"]="Nom d'utilisateur ou mot de passe incorrecte";
