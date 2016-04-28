@@ -45,7 +45,7 @@ class CandidatureSql {
     {
         $tabCandidature=array();
         $dossier=NULL;
-        $req = $pdo->prepare("SELECT * FROM CANDIDATURE c, DOSSIER d WHERE c.NO_DOSSIER=d.NO_DOSSIER AND NOM_CANDIDAT=? AND VERIFICATION=?");
+        $req = $pdo->prepare("SELECT * FROM CANDIDATURE c, DOSSIER d WHERE c.NO_DOSSIER=d.NO_DOSSIER AND NOM_CANDIDAT=? AND VERIFCATION=?");
         $req->bindValue(1,$user);
         $req->bindValue(2,$etat);
         $req->execute();
@@ -57,7 +57,7 @@ class CandidatureSql {
             }
             
             $formationsql=new FormationSql();
-            $candidature=new Candidature($row["NO_CANDIDATURE"], $row["NO_DOC_LETTRE_MOTIVATION"],$dossier ,$formationsql->getById($pdo, $row["NO_FORMATION"]), $row['VERIFICATION'], $row["DATE"]);
+            $candidature=new Candidature($row["NO_CANDIDATURE"], $row["NO_DOC_LETTRE_MOTIVATION"],$dossier ,$formationsql->getById($pdo, $row["NO_FORMATION"]), $row['VERIFCATION'], $row["DATE"]);
             array_push($tabCandidature, $candidature);
         }
         return $tabCandidature;
@@ -78,7 +78,7 @@ class CandidatureSql {
             }
             
             $formationsql=new FormationSql();
-            $candidature=new Candidature($row["NO_CANDIDATURE"], $row["NO_DOC_LETTRE_MOTIVATION"],$dossier ,$formationsql->getById($pdo, $row["NO_FORMATION"]), $row['VERIFICATION'], $row["DATE"]);
+            $candidature=new Candidature($row["NO_CANDIDATURE"], $row["NO_DOC_LETTRE_MOTIVATION"],$dossier ,$formationsql->getById($pdo, $row["NO_FORMATION"]), $row['VERIFCATION'], $row["DATE"]);
             array_push($tabCandidature, $candidature);
         }
         return $tabCandidature;
@@ -88,7 +88,7 @@ class CandidatureSql {
     {
         $tabCandidature=array();
         $dossier=NULL;
-        $req = $pdo->prepare("SELECT * FROM CANDIDATURE WHERE NO_CANDIDATURE=? AND VERIFICATION=?");
+        $req = $pdo->prepare("SELECT * FROM CANDIDATURE WHERE NO_CANDIDATURE=? AND VERIFCATION=?");
         $req->bindValue(1,$id);
         $req->bindValue(2,$etat);
         $req->execute();
@@ -100,7 +100,7 @@ class CandidatureSql {
             }
             
             $formationsql=new FormationSql();
-            $candidature=new Candidature($row["NO_CANDIDATURE"], $row["NO_DOC_LETTRE_MOTIVATION"],$dossier ,$formationsql->getById($pdo, $row["NO_FORMATION"]), $row['VERIFICATION'], $row["DATE"]);
+            $candidature=new Candidature($row["NO_CANDIDATURE"], $row["NO_DOC_LETTRE_MOTIVATION"],$dossier ,$formationsql->getById($pdo, $row["NO_FORMATION"]), $row['VERIFCATION'], $row["DATE"]);
             array_push($tabCandidature, $candidature);
         }
         return $tabCandidature;
@@ -110,7 +110,7 @@ class CandidatureSql {
     {
         $tabCandidature=array();
         $dossier=NULL;
-        $req = $pdo->prepare("SELECT * FROM CANDIDATURE WHERE NO_FORMATION=? AND VERIFICATION=?");
+        $req = $pdo->prepare("SELECT * FROM CANDIDATURE WHERE NO_FORMATION=? AND VERIFCATION=?");
         $req->bindValue(1,$f->getNo());
         $req->bindValue(2,$etat);
         $req->execute();
@@ -122,7 +122,7 @@ class CandidatureSql {
             }
             
             $formationsql=new FormationSql();
-            $candidature=new Candidature($row["NO_CANDIDATURE"], $row["NO_DOC_LETTRE_MOTIVATION"],$dossier ,$formationsql->getById($pdo, $row["NO_FORMATION"]), $row['VERIFICATION'], $row["DATE"]);
+            $candidature=new Candidature($row["NO_CANDIDATURE"], $row["NO_DOC_LETTRE_MOTIVATION"],$dossier ,$formationsql->getById($pdo, $row["NO_FORMATION"]), $row['VERIFCATION'], $row["DATE"]);
             array_push($tabCandidature, $candidature);
         }
         return $tabCandidature;
@@ -143,7 +143,7 @@ class CandidatureSql {
         // appel de la procédure stockée
         $stmt->execute();
         foreach ($stmt as $row) {
-            $tabR[]=[$row["NO_CANDIDATURE"],$row["VERIFICATION"]];
+            $tabR[]=[$row["NO_CANDIDATURE"],$row["VERIFCATION"]];
         }
         return $tabR;
     }
@@ -151,7 +151,7 @@ class CandidatureSql {
     function donnerAvis($pdo,  Candidature $c)
     {
         try{
-            $stmt = $pdo->prepare("UPDATE candidature SET VERIFICATION=? WHERE No_CANDIATURE=?");
+            $stmt = $pdo->prepare("UPDATE candidature SET VERIFCATION=? WHERE No_CANDIATURE=?");
             $stmt->bindValue(1,$c->getVerificaion());
             $stmt->bindValue(2,$c->getNo());
             $stmt->execute();
