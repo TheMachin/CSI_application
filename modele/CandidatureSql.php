@@ -45,7 +45,7 @@ class CandidatureSql {
     {
         $tabCandidature=array();
         $dossier=NULL;
-        $req = $pdo->prepare("SELECT * FROM CANDIDATURE c, DOSSIER d WHERE c.NO_DOSSIER=d.NO_DOSSIER AND NOM_CANDIDAT=? AND c.VERIFCATION=?");
+        $req = $pdo->prepare("SELECT c.NO_CANDIDATURE, c.NO_DOC_LETTRE_MOTIVATION, c.NO_FORMATION, c.VERIFCATION, c.DATE, c.NO_DOSSIER FROM CANDIDATURE c, DOSSIER d WHERE c.NO_DOSSIER=d.NO_DOSSIER AND NOM_CANDIDAT=? AND c.VERIFCATION=?");
         $req->bindValue(1,$user);
         $req->bindValue(2,$etat);
         $req->execute();
