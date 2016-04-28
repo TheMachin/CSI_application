@@ -96,6 +96,7 @@ and open the template in the editor.
 <html>
     <head>
         <meta charset="UTF-8">
+        <link href="style.css" rel="stylesheet" type="text/css"/>
         <title>Accueil</title>
     </head>
     <body>
@@ -118,25 +119,28 @@ and open the template in the editor.
             
         ?>
         <div id="candidature A">
+            <h2>Liste des candidatures acceptées</h2>
             <?php 
                 $tabCanditure=$candidatureSql->getCandidatureByUserAndEtat($pdo, $candidat->getNom_candidat(),"accepté");
                 include("../vue/candidature.php"); ?>
         </div>
         
         <div id="candidature E">
+            <h2>Liste des candidatures en cours</h2>
             <?php 
                 $tabCanditure=$candidatureSql->getCandidatureByUserAndEtat($pdo, $candidat->getNom_candidat(),"en cours");
                 include("../vue/candidature.php"); ?>
         </div>
         
         <div id="candidature R">
+            <h2>Liste des candidatures refusées</h2>
             <?php 
                 $tabCanditure=$candidatureSql->getCandidatureByUserAndEtat($pdo, $candidat->getNom_candidat(),"refusé");
                 include("../vue/candidature.php"); ?>
         </div>
         
         <div id="candidater">
-            <a href="candidater.php">Ajouter une candidature</a>
+            <p><a href="candidater.php">Ajouter une candidature</a></p>
         </div>
     </body>
 </html>
