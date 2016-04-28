@@ -28,7 +28,7 @@ if(empty($_SESSION["type"]))
 
 $candidatureSql=new CandidatureSql();
 
-$tabCanditure[];
+$tabCanditure=array();
 
 if(empty($_SESSION["dossier"]))
 {
