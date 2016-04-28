@@ -1,15 +1,38 @@
 <!DOCTYPE html>
 <?php
-    include("../modele/connexion.php"); 
-    
-    include("../modele/CandidatSql.php");
-    include("../modele/GestionnaireSql.php");
-    include("../modele/DossierSql.php");
-    include("../modele/PaysSql.php");
-    include("../modele/CandidatureSql.php");
-    include("../modele/FormationSql.php");
-    include("../modele/ResponsableFSql.php");
-    include("../modele/UniversiteSql.php");
+    include("../modele/connexion.php");
+
+include("../modele/CandidatSql.php");
+include("../modele/GestionnaireSql.php");
+include("../modele/DossierSql.php");
+include("../modele/PaysSql.php");
+include("../modele/CandidatureSql.php");
+include("../modele/FormationSql.php");
+include("../modele/ResponsableFSql.php");
+include("../modele/UniversiteSql.php");
+
+session_start(); 
+if(empty($_SESSION["dossier"]) && empty($_GET["noDossier"]))
+{
+    if(!empty($_SESSION["candidat"]))
+    {
+        $candidat=  unserialize($_SESSION["candidat"]);
+        $dossierSql=new DossierSql();
+        $dossier=$dossierSql->getDossierDuCandidat($pdo, $candidat);
+    }else{
+        exit;
+    }
+}else if(!empty($_SESSION["dossier"])){
+    $dossier=  unserialize($_SESSION["dossier"]);
+    $candidat=$dossier->getCandidat();
+}else if(!empty($_GET["noDossier"])){
+    $dossierSql=new DossierSql();
+    $dossier=$dossierSql->getDossierById($pdo, $_GET["noDossier"]);
+}
+
+
+$candidatureSql=new CandidatureSql();
+$tabCanditure=$candidatureSql->getCandidatureByUser($pdo, $candidat->getNom_candidat());
 ?>
 <html>
     <head>
@@ -24,7 +47,13 @@
             <?php
                 $reponse = $pdo->query('SELECT u.NOM_UNIV, f.NOM_FORMATION, f.DOMAINE, f.NIVEAU, f.DATE_LIMITE, f.NBRE_PLACE_LIMITE
                 FROM formation f, universite u
-                WHERE f.NO_UNIV = u.NO_UNIV');
+                WHERE f.NO_UNIV = u.NO_UNIV
+                AND f.NO_FORMATION NOT IN (
+                    SELECT f.NO_FORMATION
+                    FROM formation f, candidature c, dossier d
+                    WHERE f.NO_FORMATION = c.NO_FORMATION
+                    AND d.NO_DOSSIER = c.NO_DOSSIER
+                    AND d.NOM_CANDIDAT = \''.$candidat->getNom_candidat().'\')');
             ?>
             <thead>
                 <tr>

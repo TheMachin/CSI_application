@@ -72,8 +72,15 @@ $tabCanditure=$candidatureSql->getCandidatureByUser($pdo, $candidat->getNom_cand
             <tbody>
                 <?php
                     while ($lettre = $motivation->fetch()) {
+                        echo '<tr>';
                         echo '<td>'. $lettre['NOM_DOC']. '</td>';
-                        echo '<td><a href="index.php?ajout='. $lettre['NOM_DOC'] . '">Ajouter</a></td>';
+                        echo '<td>
+                        <form action="index.php" method="post" >
+                        <input type="hidden" name="no_form" value="'. $noForm . '" />
+                        <input type="hidden" name="no_lettre" value="'. $lettre['NOM_DOC'] . '" />
+                        <input type="submit" value="Confirmer"/>
+                        </td>';
+                        echo '</tr>';
                     }
                 ?>
             </tbody>

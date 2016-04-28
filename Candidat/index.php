@@ -46,12 +46,6 @@ if(empty($_SESSION["dossier"]))
 
 if(!empty($_POST))
 {
-    $req = $pdo->prepare('INSERT INTO document(NOM_DOC, TYPE_DOC) VALUES(:NOM_DOC, :TYPE_DOC)');
-    $req->execute(array(
-        'NOM_DOC' => $_POST['ldm'],
-        'TYPE_DOC' => "Lettre de motivation"
-    ));
-    
     $dos = $pdo->query('SELECT NO_DOSSIER
     FROM dossier
     WHERE NOM_CANDIDAT =\''. $candidat->getNom_candidat().'\'');
@@ -64,12 +58,22 @@ if(!empty($_POST))
     $doss = $dos->fetch();
     $docc = $doc->fetch();
     
-    $req2 = $pdo->prepare('INSERT INTO contient_document(NO_DOC, NO_DOSSIER) VALUES(:NO_DOC, :NO_DOSSIER)');
-    $req2->execute(array(
-        'NO_DOC' => $docc['NO_DOC'],
-        'NO_DOSSIER' => $doss['NO_DOSSIER']
-    ));
-    $var = 'La nouvelle lettre de motivation a bien ete ajoutee';
+    if(!empty($_POST['ldm']))
+    {
+        $req = $pdo->prepare('INSERT INTO document(NOM_DOC, TYPE_DOC) VALUES(:NOM_DOC, :TYPE_DOC)');
+        $req->execute(array(
+            'NOM_DOC' => $_POST['ldm'],
+            'TYPE_DOC' => "Lettre de motivation"
+        ));
+        
+        $req2 = $pdo->prepare('INSERT INTO contient_document(NO_DOC, NO_DOSSIER) VALUES(:NO_DOC, :NO_DOSSIER)');
+        $req2->execute(array(
+            'NO_DOC' => $docc['NO_DOC'],
+            'NO_DOSSIER' => $doss['NO_DOSSIER']
+        ));
+        $var = 'La nouvelle lettre de motivation a bien ete ajoutee';
+    }
+    
     
     $insert = $pdo->prepare('INSERT INTO candidature(NO_DOC_LETTRE_MOTIVATION, NO_DOSSIER, NO_FORMATION) VALUES(:NO_DOC_LETTRE_MOTIVATION, :NO_DOSSIER, :NO_FORMATION)');
     $insert->execute(array(
