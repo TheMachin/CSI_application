@@ -45,7 +45,7 @@ if(count($dossier->getTabD())==0)
 
     include("../vue/dossier.php");
     
-    var_dump($dossier);
+
     if($_SESSION["user"]==="gestionnaire" && ($dossier->getVerification()==="en cours" || $dossier->getVerification()===NULL)){
 ?>
 

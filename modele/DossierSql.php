@@ -40,7 +40,7 @@ class DossierSql {
     function getDossierCandidatByGestionnaire($pdo,$gestionnaire)
     {
         $tabD=array();
-        $req = $pdo->prepare("SELECT * FROM DOSSIER WHERE NOM_GESTIONNAIRE=?");
+        $req = $pdo->prepare("SELECT * FROM DOSSIER WHERE NOM_GESTIONNAIRE=? AND (VERIFCATION IS NULL OR VERIFCATION='en cours')");
         $req->bindValue(1,$gestionnaire);
         $req->execute();
         $candidatSql=new CandidatSql();
@@ -58,7 +58,7 @@ class DossierSql {
     function getDossierCandidatMemePaysQueGestionnaire($pdo,  Gestionnaire $g)
     {
         $tabD=array();
-        $req = $pdo->prepare("SELECT * FROM DOSSIER d, candidat c WHERE d.nom_gestionnaire IS NULL AND d.NOM_CANDIDAT = c.NOM_CANDIDAT AND c.NO_PAYS=? ");
+        $req = $pdo->prepare("SELECT * FROM DOSSIER d, candidat c WHERE d.nom_gestionnaire IS NULL AND d.NOM_CANDIDAT = c.NOM_CANDIDAT AND c.NO_PAYS=? AND (VERIFCATION IS NULL OR VERIFCATION='en cours')");
         $req->bindValue(1,$g->getPays()->getId());
         $req->execute();
         $candidatSql=new CandidatSql();

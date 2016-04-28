@@ -21,7 +21,7 @@ class DocumentSql {
         $req->bindValue(1,$d->getNo());
         $req->execute();
         foreach ($req as $row) {
-            $doc=new Document($row["NO_DOC"], $nom["NOM_DOC"], $type["TYPE_DOC"]);
+            $doc=new Document($row["NO_DOC"], $row["NOM_DOC"], $row["TYPE_DOC"]);
             array_push($tabD, $doc);
         }
         return $tabD;
