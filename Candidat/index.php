@@ -69,7 +69,7 @@ if(!empty($_POST))
         'NO_DOC' => $docc['NO_DOC'],
         'NO_DOSSIER' => $doss['NO_DOSSIER']
     ));
-    echo 'La nouvelle lettre de motivation a bien ete ajoutee';
+    $var = 'La nouvelle lettre de motivation a bien ete ajoutee';
     
     $insert = $pdo->prepare('INSERT INTO candidature(NO_DOC_LETTRE_MOTIVATION, NO_DOSSIER, NO_FORMATION) VALUES(:NO_DOC_LETTRE_MOTIVATION, :NO_DOSSIER, :NO_FORMATION)');
     $insert->execute(array(
@@ -77,7 +77,7 @@ if(!empty($_POST))
         'NO_DOSSIER' => $doss['NO_DOSSIER'],
         'NO_FORMATION' => $_POST['no_form']
     ));
-    echo 'La candidature a ete envoyee a la formation !';
+    $var2 = 'La candidature a ete envoyee a la formation !';
 }
 
 
@@ -96,6 +96,14 @@ and open the template in the editor.
     </head>
     <body>
         <?php
+        if(!empty($var))
+        {
+           echo '<p>'.$var.'</p>'; 
+        }
+        if(!empty($var2))
+        {
+           echo '<p>'.$var2.'</p>'; 
+        }
             echo '<p>Bonjour '. $candidat->getPrenom(). ' '. $candidat->getNom() .' !</p>';
         ?>
         <div id="dossier">
