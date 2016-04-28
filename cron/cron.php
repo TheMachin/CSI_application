@@ -20,8 +20,8 @@ $candidatureSql->callProcedureSiDateDepasse($pdo);
 $tabR=$candidatureSql->callProcedureRappel($pdo);
 
 /*
- * Si l'était d'une candidature est "en cours", le gestionnaire a 3 jours pour donner son avis
- * Si l'était d'une candidature est "accepté", le candidat a 3 jours pour donner son avis
+ * Si l'était d'une candidature est "en cours", le gestionnaire a 30 jours pour donner son avis
+ * Si l'était d'une candidature est "accepté", le candidat a 10 jours pour donner son avis
  */
 foreach ($tabR as $value) {
     if($value[1]==="en cours")

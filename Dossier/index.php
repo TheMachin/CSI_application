@@ -30,24 +30,23 @@ if(empty($_SESSION["dossier"]) && empty($_GET["noDossier"]))
 }else if(!empty($_GET["noDossier"])){
     $dossierSql=new DossierSql();
     $dossier=$dossierSql->getDossierById($pdo, $_GET["noDossier"]);
+    $candidat=$dossier->getCandidat();
 }
 
 
 $candidatureSql=new CandidatureSql();
 $tabCanditure=$candidatureSql->getCandidatureByUser($pdo, $candidat->getNom_candidat());
-
 if(count($dossier->getTabD())==0)
 {
     $docSql=new DocumentSql();
     $dossier->setTabD($docSql->getAllDocumentByDossier($pdo, $dossier));
-    $_SESSION["dossier"]=  serialize($dossier);
+    //$_SESSION["dossier"]=  serialize($dossier);
 }
 
     include("../vue/dossier.php");
     
-    
-    
-    if($_SESSION["user"]==="gestionnaire" && $dossier->getVerification()==="en cours"){
+    var_dump($dossier);
+    if($_SESSION["user"]==="gestionnaire" && ($dossier->getVerification()==="en cours" || $dossier->getVerification()===NULL)){
 ?>
 
     

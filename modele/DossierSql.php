@@ -37,6 +37,40 @@ class DossierSql {
         return $dossier;
     }
     
+    function getDossierCandidatByGestionnaire($pdo,$gestionnaire)
+    {
+        $tabD=array();
+        $req = $pdo->prepare("SELECT * FROM DOSSIER WHERE NOM_GESTIONNAIRE=?");
+        $req->bindValue(1,$gestionnaire);
+        $req->execute();
+        $candidatSql=new CandidatSql();
+        $candidatureSql=new CandidatureSql();
+        $gestionnaireSql=new GestionnaireSql();
+        foreach ($req as $row) {
+            $dossier= new Dossier($row["NO_DOSSIER"], $candidatSql->getCandidatByNomUser($pdo, $row["NOM_CANDIDAT"]), $gestionnaireSql->getGestionnaireByNomUser($pdo, $row["NOM_GESTIONNAIRE"]), $row["VERIFCATION"]);
+            $dossier->setTabCandidature($candidatureSql->getCandidatureByUser($pdo, $dossier->getCandidat()->getNom_candidat()));
+            $tabD[]=$dossier;
+            
+        }
+            return $tabD;
+    }
+    
+    function getDossierCandidatMemePaysQueGestionnaire($pdo,  Gestionnaire $g)
+    {
+        $tabD=array();
+        $req = $pdo->prepare("SELECT * FROM DOSSIER d, candidat c WHERE d.nom_gestionnaire IS NULL AND d.NOM_CANDIDAT = c.NOM_CANDIDAT AND c.NO_PAYS=? ");
+        $req->bindValue(1,$g->getPays()->getId());
+        $req->execute();
+        $candidatSql=new CandidatSql();
+        $gestionnaireSql=new GestionnaireSql();
+        foreach ($req as $row) {
+            $dossier= new Dossier($row["NO_DOSSIER"], $candidatSql->getCandidatByNomUser($pdo, $row["NOM_CANDIDAT"]), $gestionnaireSql->getGestionnaireByNomUser($pdo, $row["NOM_GESTIONNAIRE"]), $row["VERIFCATION"]);
+            $tabD[]=$dossier;
+            
+        }
+            return $tabD;
+    }
+    
     /**
      * Mettre à jour le champ verifcation d'un dossier
      * Un trigger va refuser les candidatures du candidat si l'avis est négatif

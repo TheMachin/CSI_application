@@ -24,7 +24,7 @@ class CandidatureSql {
     {
         $tabCandidature=array();
         $dossier=NULL;
-        $req = $pdo->prepare("SELECT * FROM CANDIDATURE c, DOSSIER d WHERE c.NO_DOSSIER=d.NO_DOSSIER AND NOM_CANDIDAT=?");
+        $req = $pdo->prepare("SELECT * FROM CANDIDATURE c, DOSSIER d WHERE c.NO_DOSSIER=d.NO_DOSSIER AND NOM_CANDIDAT=? ORDER BY DATE DESC");
         $req->bindValue(1,$user);
         $req->execute();
         foreach ($req as $row) {
