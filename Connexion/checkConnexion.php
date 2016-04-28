@@ -1,11 +1,13 @@
 <?php
+session_start();
+
 include("../modele/connexion.php");
 include("../modele/CandidatSql.php");
 include("../modele/GestionnaireSql.php");
 include("../modele/ResponsableFSql.php");
 include("../modele/PaysSql.php");
 
-session_start();
+
 /* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -52,7 +54,7 @@ if($_POST["type"]==="candidat")
         exit();
     }
     
-    session_start();
+
     $_SESSION["candidat"]=  serialize($candidat);
     $_SESSION["user"]="candidat"; // l'utilisateur connecté est un candidat
     header('Location: ../Candidat/index.php');
@@ -71,9 +73,11 @@ if($_POST["type"]==="candidat")
         exit();
     }
     
-    session_start();
+
     $_SESSION["gestionnaire"]=  serialize($gestionnaire);
     $_SESSION["user"]="gestionnaire"; // l'utilisateur connecté est un gestionnaire
+    header('Location: ../Gestionnaire/indexGest.php');
+    exit();
     
 }else if($_POST["type"]==="responsable"){
     //$responsable=new ResponsableF($user, NULL, $mdp, "", "");
@@ -87,7 +91,7 @@ if($_POST["type"]==="candidat")
         exit();
     }
     
-    session_start();
+
     $_SESSION["responsable"]=  serialize($responsable);
     $_SESSION["user"]="responsable"; // l'utilisateur connecté est un responsable de formation
     
