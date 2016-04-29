@@ -127,6 +127,7 @@ and open the template in the editor.
             <h2>Liste des candidatures acceptées</h2>
             <?php 
                 $tabCanditure=$candidatureSql->getCandidatureByUserAndEtat($pdo, $candidat->getNom_candidat(),"accepté");
+                $tabCanditure=  array_merge($tabCanditure,$candidatureSql->getCandidatureByUserAndEtat($pdo, $candidat->getNom_candidat(),"confirmé"));
                 include("../vue/candidature.php"); ?>
         </div>
         
@@ -151,14 +152,11 @@ and open the template in the editor.
         <div id="candidater">
             <p><a href="candidater.php">Ajouter une candidature</a></p>
         </div>
-<<<<<<< HEAD
         <?php
             }
         ?>
-=======
         <div id="document">
             <p><a href="modifDoc.php">Modifier vos documents</a></p>
         </div>
->>>>>>> origin/master
     </body>
 </html>

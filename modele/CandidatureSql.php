@@ -148,7 +148,7 @@ class CandidatureSql {
     function donnerAvis($pdo,  Candidature $c)
     {
         try{
-            $stmt = $pdo->prepare("UPDATE candidature SET VERIFCATION=?, DATE=NOW() WHERE NO_CANDIDATURE=? ");
+            $stmt = $pdo->prepare("UPDATE candidature SET VERIFCATION=?, DATE=DATE_ADD(NOW(), INTERVAL 10 DAY) WHERE NO_CANDIDATURE=? ");
             $stmt->bindValue(1,$c->getVerificaion());
             $stmt->bindValue(2,$c->getNo());
             $stmt->execute();

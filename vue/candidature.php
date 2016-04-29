@@ -39,7 +39,7 @@ if(count($tabCanditure)>0)
                     <th>Refuser</th>
                 <?php
             }else{
-                echo "<th>Annuler</th>";
+                echo "<th>Action</th>";
             }
             ?>
         </tr>
@@ -102,13 +102,17 @@ if(count($tabCanditure)>0)
                 </tr>
                 <?php
                     }else{
-                        if($candidature->getVerificaion()!="accepté" && $candidature->getVerificaion()!="refusé" && $candidature->getVerificaion()!="annulé" )
+                        if($candidature->getVerificaion()!="accepté" && $candidature->getVerificaion()!="refusé" && $candidature->getVerificaion()!="annulé" && $candidature->getVerificaion()!="confirmé")
                                 {
                             ?>
                                     <td><a href="../Candidature/avis.php?noCand=<?php echo $candidature->getNo(); ?>&avis=A">Annuler candidature</a></td>
                         <?php
                                 }else{
-                                    echo "<td></td>";
+                                    if($candidature->getVerificaion()==="accepté"){
+                                        ?> <td><a href="../Candidature/avis.php?noCand=<?php echo $candidature->getNo(); ?>&avis=C">Confirmer candidature</a></td> <?php 
+                                    }else{ 
+                                            echo "<td></td>";
+                                    }
                                 }
                     }
             }
