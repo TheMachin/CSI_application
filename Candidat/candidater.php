@@ -46,9 +46,13 @@ $tabCanditure=$candidatureSql->getCandidatureByUser($pdo, $candidat->getNom_cand
         <h2>Liste des formations :</h2>
         <table>
             <?php
-                $reponse = $pdo->query('SELECT u.NOM_UNIV, f.NOM_FORMATION, f.DOMAINE, f.NIVEAU, f.DATE_LIMITE, f.NBRE_PLACE_LIMITE
-                FROM formation f, universite u
+                $reponse = $pdo->query('SELECT u.NOM_UNIV, f.NOM_FORMATION, f.DOMAINE, f.NIVEAU, f.DATE_LIMITE, f.NBRE_PLACE_LIMITE, c.nb
+                FROM formation f, universite u, (select f.NO_FORMATION, count(c.NO_CANDIDATURE) as nb
+                                                from formation f
+                                                LEFT JOIN candidature c ON f.NO_FORMATION = c.NO_FORMATION and c.VERIFCATION="accepté"
+                                                group by f.NO_FORMATION) c
                 WHERE f.NO_UNIV = u.NO_UNIV
+                AND c.NO_FORMATION = f.NO_FORMATION
                 AND f.NO_FORMATION NOT IN (
                     SELECT f.NO_FORMATION
                     FROM formation f, candidature c, dossier d
@@ -71,15 +75,18 @@ $tabCanditure=$candidatureSql->getCandidatureByUser($pdo, $candidat->getNom_cand
                 <?php
                     while ($donnees = $reponse->fetch())
                     {
-                        echo '<tr>';
-                        echo '<td>'. $donnees['NOM_UNIV'] . '</td>';
-                        echo '<td>'. $donnees['NOM_FORMATION'] . '</td>';
-                        echo '<td>'. $donnees['DOMAINE'] . '</td>';
-                        echo '<td>'. $donnees['NIVEAU'] . '</td>';
-                        echo '<td>'. $donnees['DATE_LIMITE'] . '</td>';
-                        echo '<td>'. $donnees['NBRE_PLACE_LIMITE'] . '</td>';
-                        echo '<td><a href="ajoutCandidature.php?ajout='. $donnees['NOM_UNIV'] . '">Ajouter</a></td>';
-                        echo '</tr>';
+                        if ($donnees['NBRE_PLACE_LIMITE'] > $donnees['nb']){
+                            echo '<tr>';
+                            echo '<td>'. $donnees['NOM_UNIV'] . '</td>';
+                            echo '<td>'. $donnees['NOM_FORMATION'] . '</td>';
+                            echo '<td>'. $donnees['DOMAINE'] . '</td>';
+                            echo '<td>'. $donnees['NIVEAU'] . '</td>';
+                            echo '<td>'. $donnees['DATE_LIMITE'] . '</td>';
+                            echo '<td>'. $donnees['NBRE_PLACE_LIMITE'] . '</td>';
+                            echo '<td><a href="ajoutCandidature.php?ajout='. $donnees['NOM_UNIV'] . '">Ajouter</a></td>';
+                            echo '</tr>';
+                        }
+                        
                     }
                 ?>
             </tbody>

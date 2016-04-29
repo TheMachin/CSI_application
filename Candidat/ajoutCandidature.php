@@ -60,7 +60,7 @@ $tabCanditure=$candidatureSql->getCandidatureByUser($pdo, $candidat->getNom_cand
         ?>
         <h3>Choisissez une lettre de motivation :</h3>
         <?php
-            $motivation = $pdo->query('SELECT doc.NOM_DOC
+            $motivation = $pdo->query('SELECT doc.NOM_DOC, doc.NO_DOC
             FROM dossier dos, document doc, contient_document cd
             WHERE doc.no_doc = cd.no_doc
             AND cd.no_dossier = dos.no_dossier
@@ -76,8 +76,9 @@ $tabCanditure=$candidatureSql->getCandidatureByUser($pdo, $candidat->getNom_cand
                         echo '<td>
                         <form action="index.php" method="post" >
                         <input type="hidden" name="no_form" value="'. $noForm . '" />
-                        <input type="hidden" name="no_lettre" value="'. $lettre['NOM_DOC'] . '" />
+                        <input type="hidden" name="no_lettre" value="'. $lettre['NO_DOC'] . '" />
                         <input type="submit" value="Confirmer"/>
+                        </form>
                         </td>';
                         echo '</tr>';
                     }

@@ -73,10 +73,11 @@ if(!empty($_POST))
         $var = 'La nouvelle lettre de motivation a bien ete ajoutee';
     }
     else{
-        $doc = $pdo->query('SELECT NO_DOC
+        $doc = $pdo->prepare('SELECT NO_DOC
         FROM document
         WHERE type_doc = "Lettre de motivation"
-        ORDER BY NO_DOC DESC LIMIT 0, 1');
+        AND no_doc = ?');
+        $doc->execute(array($_POST['no_lettre']));
         $docc = $doc->fetch();
     }
     
