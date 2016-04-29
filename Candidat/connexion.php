@@ -21,6 +21,7 @@
                 {
                     echo $_SESSION["msgErreur"];
                     unset($_SESSION["msgErreur"]);
+                    session_destroy();
                 }
             ?>
         </div>

@@ -2,7 +2,7 @@
       
 // put your code here
 include("../modele/connexion.php");
-
+include("../vue/deconnexion.php");
 include("../modele/CandidatSql.php");
 include("../modele/GestionnaireSql.php");
 include("../modele/DossierSql.php");

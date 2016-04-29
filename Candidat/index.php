@@ -1,6 +1,6 @@
 <?php
 
-
+include("../vue/deconnexion.php");
 include("../modele/connexion.php");
 
 include("../modele/CandidatSql.php");

@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -13,6 +16,16 @@ and open the template in the editor.
         <h1>
             Espace Responsable de formation - Connexion
         </h1>
+        <div id="msgE">
+            <?php
+                if(!empty($_SESSION["msgErreur"]))
+                {
+                    echo $_SESSION["msgErreur"];
+                    unset($_SESSION["msgErreur"]);
+                    session_destroy();
+                }
+            ?>
+        </div>
         <form action="../Connexion/checkConnexion.php" method="post" >
             <div class="form-group">
                 <label for="user">Nom d'utilisateur : </label>
