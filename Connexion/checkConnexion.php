@@ -6,6 +6,7 @@ include("../modele/CandidatSql.php");
 include("../modele/GestionnaireSql.php");
 include("../modele/ResponsableFSql.php");
 include("../modele/PaysSql.php");
+include("../modele/DocumentSql.php");
 
 
 /* 

@@ -6,6 +6,7 @@
 
 include("../modele/connexion.php");
 include("../modele/CandidatureSql.php");
+include("../modele/DocumentSql.php");
 
 $candidatureSql=new CandidatureSql();
 
