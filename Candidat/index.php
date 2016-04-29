@@ -133,9 +133,10 @@ and open the template in the editor.
         </div>
         
         <div id="candidature R">
-            <h2>Liste des candidatures refusées</h2>
+            <h2>Liste des candidatures refusées ou annulées</h2>
             <?php 
                 $tabCanditure=$candidatureSql->getCandidatureByUserAndEtat($pdo, $candidat->getNom_candidat(),"refusé");
+                $tabCanditure=  array_merge($tabCanditure,$candidatureSql->getCandidatureByUserAndEtat($pdo, $candidat->getNom_candidat(),"annulé"));
                 include("../vue/candidature.php"); ?>
         </div>
         

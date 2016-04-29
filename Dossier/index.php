@@ -50,7 +50,7 @@ if(count($dossier->getTabD())==0)
     $dossier->setTabD($docSql->getAllDocumentByDossier($pdo, $dossier));
     //$_SESSION["dossier"]=  serialize($dossier);
 }
-
+    $_SESSION["dossier"]=  serialize($dossier);
     include("../vue/dossier.php");
     
 

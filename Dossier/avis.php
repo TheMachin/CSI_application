@@ -18,16 +18,18 @@ if(!empty($_SESSION["dossier"]))
 {
     $dossier=  unserialize($_SESSION["dossier"]);
 }else{
-    header("location:". $_SERVER['HTTP_REFERER']);
-    exit();
+    echo "dossier vide";
+    //header("location:". $_SERVER['HTTP_REFERER']);
+    //exit();
 }
 
 if(!empty($_SESSION["gestionnaire"]))
 {
     $g=  unserialize($_SESSION["gestionnaire"]);
 }else{
-    header("location:". $_SERVER['HTTP_REFERER']);
-    exit();
+    echo "gestionnaire vide";
+    //header("location:". $_SERVER['HTTP_REFERER']);
+    //exit();
 }
 
 $dossier->setGestionnaire($g);
@@ -40,7 +42,7 @@ if($_GET["a"]==="1")
 }
 
 $dossiersql->donnerAvis($pdo, $dossier);
-
+//var_dump($dossier);
 /**Si avis négatif Alors
  *      Envoie d'un mail au candidat pour dire que son dossier a été refusé
  * Sinon rien

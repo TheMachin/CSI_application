@@ -38,6 +38,8 @@ if(count($tabCanditure)>0)
                     <?php } ?>
                     <th>Refuser</th>
                 <?php
+            }else{
+                echo "<th>Annuler</th>";
             }
             ?>
         </tr>
@@ -72,7 +74,7 @@ if(count($tabCanditure)>0)
                         <td><a href="../Dossier/index.php?noDossier=<?php echo $dossier->getNo(); ?>">acceder</a></td>
                         <?php 
                         if($_SESSION["user"]!=="gestionnaire" ){ 
-                                if($candidature->getVerificaion()!="accepté" && $candidature->getVerificaion()!="refusé" )
+                                if($candidature->getVerificaion()!="accepté" && $candidature->getVerificaion()!="refusé" && $candidature->getVerificaion()!="annulé")
                                 {
                             ?>
                                     <td><a href="../Candidature/avis.php?noCand=<?php echo $candidature->getNo(); ?>&avis=P">Accepter candidature</a></td>
@@ -85,16 +87,29 @@ if(count($tabCanditure)>0)
                                     <?php
                                 }
                         }else{
-                            if($candidature->getVerificaion()==="accepté" && $candidature->getVerificaion()==="refusé" )
+                            if($candidature->getVerificaion()==="accepté" || $candidature->getVerificaion()==="refusé" || $candidature->getVerificaion()==="annulé")
                             {
                                 ?>
                                     <td></td>
                                 <?php
+                            }else{
+                                ?>
+                                    <td><a href="../Candidature/avis.php?noCand=<?php echo $candidature->getNo(); ?>&avis=R">Refuser candidature</a></td>
+                                    <?php
                             }
                         }
                     ?>
                 </tr>
                 <?php
+                    }else{
+                        if($candidature->getVerificaion()!="accepté" && $candidature->getVerificaion()!="refusé" && $candidature->getVerificaion()!="annulé" )
+                                {
+                            ?>
+                                    <td><a href="../Candidature/avis.php?noCand=<?php echo $candidature->getNo(); ?>&avis=A">Annuler candidature</a></td>
+                        <?php
+                                }else{
+                                    echo "<td></td>";
+                                }
                     }
             }
 }else{

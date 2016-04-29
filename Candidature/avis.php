@@ -20,14 +20,14 @@ $cSql=new CandidatureSql();
 $candidature=NULL;
 $r=NULL;
 
-if(!empty($_SESSION["responsable"]))
+/*if(!empty($_SESSION["responsable"]))
 {
     $r=  unserialize($_SESSION["responsable"]);
 }else{
     header("location:". $_SERVER['HTTP_REFERER']);
     exit();
 }
-
+*/
 if(isset($_GET["noCand"]))
 {
     $candidature=$cSql->getCandidatureById($pdo, $_GET["noCand"]);
@@ -42,6 +42,8 @@ if($_GET["avis"]==="P")
     $candidature->setVerificaion("accepté");
 }else if($_GET["avis"]==="R"){
     $candidature->setVerificaion("refusé");
+}else if($_GET["avis"]==="A"){
+    $candidature->setVerificaion("annulé");
 }else{
     header("location:". $_SERVER['HTTP_REFERER']);
     exit();

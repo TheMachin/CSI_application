@@ -81,12 +81,12 @@ class DossierSql {
     {
         $g=$d->getGestionnaire();
         try{
-            $stmt = $pdo->prepare("UPDATE dossier SET NOM_GESTIONNAIRE=?,VERIFCATION=? WHERE No_DOSSIER=?");
+            $stmt = $pdo->prepare("UPDATE dossier SET NOM_GESTIONNAIRE=?,VERIFCATION=? WHERE NO_DOSSIER=?");
             $stmt->bindValue(1,$g->getNomCompte());
             $stmt->bindValue(2,$d->getVerification());
             $stmt->bindValue(3,$d->getNo());
             $stmt->execute();
-            $stmt->debugDumpParams();
+            //$stmt->debugDumpParams();
         }  catch (PDOException $e)
         {
             echo $e->getMessage();

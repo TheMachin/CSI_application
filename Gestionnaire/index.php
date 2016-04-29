@@ -11,7 +11,7 @@ include("../modele/ResponsableFSql.php");
 include("../modele/UniversiteSql.php");
 
 session_start();
-
+unset($_SESSION["dossier"]);
 $gestionnaire=NULL;//new Gestionnaire($nomCompte, $pays, $mdp, $nom, $prenom);
 $gSql=new GestionnaireSql();
 $dSql=new DossierSql();
