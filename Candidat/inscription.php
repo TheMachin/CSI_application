@@ -97,10 +97,10 @@ $tabPays=$paysSql->getAllPays($pdo);
                         <input type="text" id="document" name="CV" placeholder="Nom du CV" class="form-control">
                 </div>
                 <br>
-                <div>
+                <!--<div>
                         <label for="tel">Nom de la lettre de motivation : </label>
                         <input type="text" id="document" name="lettre" placeholder="Nom de la lettre de motivation" class="form-control">
-                </div>
+                </div>-->
                 <br>
                 <input type="button" onclick="plus();" value="Cliquer ici pour ajouter un justificatif de diplôme ou un relévé de note">
                 <input type="hidden" id="nbreDoc" name="nbreDoc" value="1">

@@ -46,6 +46,8 @@ if(empty($_POST["pays"]))
     $bool=FALSE;
 }else{
     $pays=new Pays($_POST["pays"], "");
+    $pSql=new PaysSql();
+    $pays=$pSql->getPaysById($pdo, $pays->getId());
     $candidat->setPays($pays);
 }
 
@@ -75,7 +77,8 @@ if(empty($_POST["dateN"]))
 {
     $bool=FALSE;
 }else{
-    $candidat->setDate_nais($_POST["dateN"]);
+    $date = new DateTime($_POST["dateN"]);
+    $candidat->setDate_nais($date->format('Y-m-d'));
 }
 
 if(empty($_POST["tel"]))
@@ -106,18 +109,29 @@ $i=0;
 for($i=1;$i<$nbre+1;$i++)
 {
     $type;
-    if($_POST["type".$i]==="diplome")
+    if(!empty($_POST["document".$i]))
     {
-        $type="Justificatif de diplôme";
-    }else if($_POST["type".$i]==="note")
-    {
-        $type="Relevé de note";
+        if($_POST["type".$i]==="diplome")
+        {
+            $type="Justificatif de diplôme";
+        }else if($_POST["type".$i]==="note")
+        {
+            $type="Relevé de note";
+        }
+        $tabDoc[$i-1]=new Document($no, $_POST["document".$i],$type);
     }
-    $tabDoc[$i-1]=new Document($no, $_POST["document".$i],$type);
-    
     
 }
 
+    if(!empty($_POST["CV"]))
+    {
+        $tabDoc[]=new Document($no, $_POST["CV"],"CV");
+    }
+    
+    if(!empty($_POST["lettre"]))
+    {
+        $tabDoc[]=new Document($no, $_POST["lettre"],"lettre de motivation");
+    }
     $dossier=new Dossier(0, $candidat, "", "");
     $dossier->setTabD($tabDoc);
     
@@ -128,12 +142,12 @@ for($i=1;$i<$nbre+1;$i++)
     $docSql=new DocumentSql();
     $docSql->insertDocument($pdo, $dossier);
 
-    
     /**
      * mise en place des sessions
      */
     $_SESSION["dossier"]=  serialize($dossier);
     $_SESSION["candidat"]=  serialize($candidat);
     $_SESSION["type"]="candidat";
+    $_SESSION["user"]="candidat";
 
     header('Location: ../Candidat/index.php');
