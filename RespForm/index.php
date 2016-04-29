@@ -8,6 +8,7 @@ include("../modele/GestionnaireSql.php");
 include("../modele/DossierSql.php");
 include("../modele/PaysSql.php");
 include("../modele/CandidatureSql.php");
+include("../modele/DocumentSql.php");
 include("../modele/FormationSql.php");
 include("../modele/ResponsableFSql.php");
 include("../modele/UniversiteSql.php");

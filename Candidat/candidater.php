@@ -2,7 +2,7 @@
 <?php
 include("../vue/deconnexion.php");
     include("../modele/connexion.php");
-
+include("../modele/DocumentSql.php");
 include("../modele/CandidatSql.php");
 include("../modele/GestionnaireSql.php");
 include("../modele/DossierSql.php");

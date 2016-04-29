@@ -9,7 +9,7 @@ include("../modele/CandidatureSql.php");
 include("../modele/FormationSql.php");
 include("../modele/ResponsableFSql.php");
 include("../modele/UniversiteSql.php");
-
+include("../modele/DocumentSql.php");
 session_start(); 
 if(empty($_SESSION["dossier"]) && empty($_GET["noDossier"]))
 {

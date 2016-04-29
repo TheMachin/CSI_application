@@ -7,6 +7,7 @@ include("../modele/PaysSql.php");
 include("../modele/CandidatureSql.php");
 include("../modele/FormationSql.php");
 include("../modele/ResponsableFSql.php");
+include("../modele/DocumentSql.php");
 include("../modele/UniversiteSql.php");
 
 //recupere nom formation

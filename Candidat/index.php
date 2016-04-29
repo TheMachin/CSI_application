@@ -6,6 +6,7 @@ include("../modele/connexion.php");
 include("../modele/CandidatSql.php");
 include("../modele/GestionnaireSql.php");
 include("../modele/DossierSql.php");
+include("../modele/DocumentSql.php");
 include("../modele/PaysSql.php");
 include("../modele/CandidatureSql.php");
 include("../modele/FormationSql.php");
@@ -87,7 +88,11 @@ if(!empty($_POST))
         'NO_DOSSIER' => $doss['NO_DOSSIER'],
         'NO_FORMATION' => $_POST['no_form']
     ));
-    $var2 = 'La candidature a ete envoyee a la formation !';
+    if(!empty($insert->errorInfo()[2]))
+    {
+        $var=$insert->errorInfo()[2];
+    }else
+        $var2 = 'La candidature a ete envoyee a la formation !';
 }
 
 

@@ -4,6 +4,7 @@ include("../vue/deconnexion.php");
 include("../modele/CandidatSql.php");
 include("../modele/GestionnaireSql.php");
 include("../modele/DossierSql.php");
+include("../modele/DocumentSql.php");
 include("../modele/PaysSql.php");
 include("../modele/CandidatureSql.php");
 include("../modele/FormationSql.php");
@@ -56,6 +57,9 @@ and open the template in the editor.
         <div id="nom prenom">
             <p>Nom : <?php echo $gestionnaire->getNom(); ?></p>
             <p>Prenom : <?php echo $gestionnaire->getPrenom(); ?></p>
+        </div>
+        <div>
+            <a href="statistique.php">Consulter les statistiques</a>
         </div>
         <div>
             <?php 
