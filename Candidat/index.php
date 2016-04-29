@@ -49,14 +49,7 @@ if(!empty($_POST))
     $dos = $pdo->query('SELECT NO_DOSSIER
     FROM dossier
     WHERE NOM_CANDIDAT =\''. $candidat->getNom_candidat().'\'');
-    
-    $doc = $pdo->query('SELECT NO_DOC
-    FROM document
-    WHERE type_doc = "Lettre de motivation"
-    ORDER BY NO_DOC DESC LIMIT 0, 1');
-    
     $doss = $dos->fetch();
-    $docc = $doc->fetch();
     
     if(!empty($_POST['ldm']))
     {
@@ -66,6 +59,12 @@ if(!empty($_POST))
             'TYPE_DOC' => "Lettre de motivation"
         ));
         
+        $doc = $pdo->query('SELECT NO_DOC
+        FROM document
+        WHERE type_doc = "Lettre de motivation"
+        ORDER BY NO_DOC DESC LIMIT 0, 1');
+        $docc = $doc->fetch();
+        
         $req2 = $pdo->prepare('INSERT INTO contient_document(NO_DOC, NO_DOSSIER) VALUES(:NO_DOC, :NO_DOSSIER)');
         $req2->execute(array(
             'NO_DOC' => $docc['NO_DOC'],
@@ -73,7 +72,13 @@ if(!empty($_POST))
         ));
         $var = 'La nouvelle lettre de motivation a bien ete ajoutee';
     }
-    
+    else{
+        $doc = $pdo->query('SELECT NO_DOC
+        FROM document
+        WHERE type_doc = "Lettre de motivation"
+        ORDER BY NO_DOC DESC LIMIT 0, 1');
+        $docc = $doc->fetch();
+    }
     
     $insert = $pdo->prepare('INSERT INTO candidature(NO_DOC_LETTRE_MOTIVATION, NO_DOSSIER, NO_FORMATION) VALUES(:NO_DOC_LETTRE_MOTIVATION, :NO_DOSSIER, :NO_FORMATION)');
     $insert->execute(array(
@@ -146,8 +151,14 @@ and open the template in the editor.
         <div id="candidater">
             <p><a href="candidater.php">Ajouter une candidature</a></p>
         </div>
+<<<<<<< HEAD
         <?php
             }
         ?>
+=======
+        <div id="document">
+            <p><a href="modifDoc.php">Modifier vos documents</a></p>
+        </div>
+>>>>>>> origin/master
     </body>
 </html>
