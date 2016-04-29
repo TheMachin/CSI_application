@@ -70,22 +70,37 @@ if(count($tabCanditure)>0)
                     {
                         ?>
                         <td><a href="../Dossier/index.php?noDossier=<?php echo $dossier->getNo(); ?>">acceder</a></td>
-                        <?php if($_SESSION["user"]!=="gestionnaire"){ ?>
-                        <td><a href="../Candidature/avis.php?noCand=<?php echo $candidature->getNo(); ?>&avis=P">Accepter candidature</a></td>
-                        <?php } ?>
-                        <td><a href="../Candidature/avis.php?noCand=<?php echo $candidature->getNo(); ?>&avis=R">Refuser candidature</a></td>
+                        <?php 
+                        if($_SESSION["user"]!=="gestionnaire" ){ 
+                                if($candidature->getVerificaion()!="accepté" && $candidature->getVerificaion()!="refusé" )
+                                {
+                            ?>
+                                    <td><a href="../Candidature/avis.php?noCand=<?php echo $candidature->getNo(); ?>&avis=P">Accepter candidature</a></td>
+                                    <td><a href="../Candidature/avis.php?noCand=<?php echo $candidature->getNo(); ?>&avis=R">Refuser candidature</a></td>
                         <?php
-                    }
+                                }else{
+                                    ?>
+                                    <td></td>
+                                    <td></td>
+                                    <?php
+                                }
+                        }else{
+                            if($candidature->getVerificaion()==="accepté" && $candidature->getVerificaion()==="refusé" )
+                            {
+                                ?>
+                                    <td></td>
+                                <?php
+                            }
+                        }
                     ?>
                 </tr>
                 <?php
-            } 
+                    }
+            }
+}else{
+    echo "Aucune candidature";
+} 
                 ?>
     </tbody>
 </table>
 
-<?php
-}else{
-    echo "Aucune candidature";
-}
-?>

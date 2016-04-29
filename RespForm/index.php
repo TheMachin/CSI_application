@@ -28,6 +28,8 @@ if(empty($_SESSION["responsable"]))
 $formation=$formationSql->getByResponsable($pdo, $responsable->getNomCompte());
 $universite=$formation->getUniversite();
 $tabCanditure=$candidatureSql->getCandidatureByFormationAndEtat($pdo, $formation, "en cours");
+
+$tabCanditureA=$candidatureSql->getCandidatureByFormationAndEtat($pdo, $formation, "accepté");
 ?>
 <!DOCTYPE html>
 <!--
@@ -57,8 +59,17 @@ and open the template in the editor.
             <p>Nom université : <?php echo $universite->getNom_univ(); ?></p>
             <p>Ville : <?php echo $universite->getVille(); ?></p>
         </div>
+        <h2>Candidature en attente</h2>
         <div id="candidature E">
             <?php include("../vue/candidature.php"); ?>
+        </div>
+        
+        <h2>Candidature accepté</h2>
+        <div id="candidature A">
+            <?php 
+                $tabCanditure=$tabCanditureA;
+                include("../vue/candidature.php"); 
+            ?>
         </div>
     </body>
 </html>

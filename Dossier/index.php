@@ -43,7 +43,6 @@ if(empty($_SESSION["dossier"]) && empty($_GET["noDossier"]))
 $_SESSION["candidat"]=  serialize($candidat);
 
 $candidatureSql=new CandidatureSql();
-var_dump($candidat);
 $tabCanditure=$candidatureSql->getCandidatureByUser($pdo, $candidat->getNom_candidat());
 if(count($dossier->getTabD())==0)
 {
