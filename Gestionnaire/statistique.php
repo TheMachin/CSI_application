@@ -10,9 +10,9 @@ include("../modele/ResponsableFSql.php");
 include("../modele/UniversiteSql.php");
 
 //recupere nom formation
-$form = $pdo->query('select * from formation');
+$form = $pdo->query('select distinct f.NOM_FORMATION from formation f, candidature c where c.NO_FORMATION=f.NO_FORMATION');
 //recupere nb candidature par formation
-$nbCand = $pdo->query('select count(c.NO_CANDIDATURE)as nb from formation f, candidature c where c.NO_FORMATION=f.NO_FORMATION');
+$nbCand = $pdo->query('select count(c.NO_CANDIDATURE)as nb from formation f, candidature c where c.NO_FORMATION=f.NO_FORMATION group by f.NO_FORMATION');
 
 
 ?>
@@ -46,10 +46,10 @@ and open the template in the editor.
                 ?>
             </TR>
         </TABLE>
-        
+        <br/>
         <?php
         //recupere nom pays
-        $pays = $pdo->query('select * from pays');
+        $pays = $pdo->query('select distinct p.NOM_PAYS from pays p, candidat c where c.NO_PAYS=p.NO_PAYS');
         //recupere nb candidat par pays
         $nbCandidat = $pdo->query('select count(c.NOM_CANDIDAT)as candidat, p.NOM_PAYS from pays p, candidat c where p.NO_PAYS=c.NO_PAYS group by p.NOM_PAYS');
         ?>
@@ -63,7 +63,7 @@ and open the template in the editor.
                 ?>
             </TR> 
             <TR> 
-                <TH> Nombre de candidats </TH> 
+                <TH> Nombre de candidats </TH>
                 <?php while($donneesnbC = $nbCandidat->fetch())
                     echo '<td>' . $donneesnbC['candidat'] . '</td>';
                 ?>
