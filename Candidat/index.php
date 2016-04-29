@@ -139,9 +139,15 @@ and open the template in the editor.
                 $tabCanditure=  array_merge($tabCanditure,$candidatureSql->getCandidatureByUserAndEtat($pdo, $candidat->getNom_candidat(),"annulé"));
                 include("../vue/candidature.php"); ?>
         </div>
-        
+        <?php
+            if($dossier->getVerification()!="refusé")
+            {
+        ?>
         <div id="candidater">
             <p><a href="candidater.php">Ajouter une candidature</a></p>
         </div>
+        <?php
+            }
+        ?>
     </body>
 </html>
