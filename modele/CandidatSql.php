@@ -95,10 +95,10 @@ class CandidatSql {
         // appel de la procédure stockée
         $stmt->execute();
         $row=$stmt->fetch();
-        var_dump($pdo->errorInfo());
+        /*var_dump($pdo->errorInfo());
         echo($stmt->errorCode());
         var_dump($stmt->errorInfo());
-        //return $no;
+        return $no;*/
         return $row['id'];
 
     }
