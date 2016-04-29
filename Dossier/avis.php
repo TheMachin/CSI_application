@@ -49,7 +49,6 @@ if(!empty($_SESSION["raison"]))
     exit();
 }else if(isset($_GET["a"]) && $_GET["a"]==="1")
 {
-    echo "here";
     $dossier->setVerification("accepté");
 }else if(isset($_GET["a"]) && $_GET["a"]==="0"){
         ?>

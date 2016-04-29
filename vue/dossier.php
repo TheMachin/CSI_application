@@ -41,7 +41,10 @@ and open the template in the editor.
         
         <div id="candidature">
             <?php
-                include("../vue/candidature.php");
+                if($_SESSION["user"]!=="responsable"){
+                    include("../vue/candidature.php");
+                }
+                
             ?>
         </div>   
         <div id="document">

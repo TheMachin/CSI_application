@@ -27,6 +27,7 @@ if(count($tabCanditure)>0)
             <th>Université</th>
             <th>Ville</th>
             <th>Etat candidature</th>
+            <th>Lettre de motivation</th>
             
             <?php 
             if($_SESSION["user"]!=="candidat")
@@ -61,12 +62,14 @@ if(count($tabCanditure)>0)
                         <?php
                     }
                     ?>
+                           
                     <td><?php echo $candidature->getFormation()->getNomFormation(); ?></td>
                     <td><?php echo $candidature->getFormation()->getNiveau(); ?></td>
                     <td><?php echo $candidature->getFormation()->getDomaine(); ?></td>
                     <td><?php echo $candidature->getFormation()->getUniversite()->getNom_univ(); ?></td>
                     <td><?php echo $candidature->getFormation()->getUniversite()->getVille(); ?></td>
                     <td><?php echo $candidature->getVerificaion(); ?></td>
+                    <td><?php echo $candidature->getLettreMotiv(); ?></td>
                     <?php 
                     if($_SESSION["user"]!=="candidat")
                     {

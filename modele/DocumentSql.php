@@ -27,6 +27,15 @@ class DocumentSql {
         return $tabD;
     }
     
+    function getNomById($pdo,$id)
+    {
+        $req = $pdo->prepare("SELECT * FROM DOCUMENT WHERE NO_DOC=?");
+        $req->bindValue(1,$id);
+        $req->execute();
+        $row=$req->fetch();
+        return $row['NOM_DOC'];
+    }
+    
     function insertDocument($pdo,Dossier $d)
     {
         $tabD=$d->getTabD();

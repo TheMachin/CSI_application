@@ -33,9 +33,9 @@ class CandidatureSql {
                 $dossiersql=new DossierSql();
                 $dossier=$dossiersql->getDossierById($pdo, $row['NO_DOSSIER']);
             }
-            
+            $docSql=new DocumentSql();
             $formationsql=new FormationSql();
-            $candidature=new Candidature($row["NO_CANDIDATURE"], $row["NO_DOC_LETTRE_MOTIVATION"],$dossier ,$formationsql->getById($pdo, $row["NO_FORMATION"]), $row['VERIFCATION'], $row["DATE"]);
+            $candidature=new Candidature($row["NO_CANDIDATURE"],$docSql->getNomById($pdo, $row["NO_DOC_LETTRE_MOTIVATION"]) ,$dossier ,$formationsql->getById($pdo, $row["NO_FORMATION"]), $row['VERIFCATION'], $row["DATE"]);
             array_push($tabCandidature, $candidature);
         }
         return $tabCandidature;
@@ -55,9 +55,9 @@ class CandidatureSql {
                 $dossiersql=new DossierSql();
                 $dossier=$dossiersql->getDossierById($pdo, $row['NO_DOSSIER']);
             }
-            
+            $docSql=new DocumentSql();
             $formationsql=new FormationSql();
-            $candidature=new Candidature($row["NO_CANDIDATURE"], $row["NO_DOC_LETTRE_MOTIVATION"],$dossier ,$formationsql->getById($pdo, $row["NO_FORMATION"]), $row['VERIFCATION'], $row["DATE"]);
+            $candidature=new Candidature($row["NO_CANDIDATURE"],$docSql->getNomById($pdo, $row["NO_DOC_LETTRE_MOTIVATION"]),$dossier ,$formationsql->getById($pdo, $row["NO_FORMATION"]), $row['VERIFCATION'], $row["DATE"]);
             array_push($tabCandidature, $candidature);
         }
         return $tabCandidature;
@@ -75,9 +75,9 @@ class CandidatureSql {
                 $dossiersql=new DossierSql();
                 $dossier=$dossiersql->getDossierById($pdo, $row['NO_DOSSIER']);
             }
-            
+            $docSql=new DocumentSql();
             $formationsql=new FormationSql();
-            $candidature=new Candidature($row["NO_CANDIDATURE"], $row["NO_DOC_LETTRE_MOTIVATION"],$dossier ,$formationsql->getById($pdo, $row["NO_FORMATION"]), $row['VERIFCATION'], $row["DATE"]);
+            $candidature=new Candidature($row["NO_CANDIDATURE"], $docSql->getNomById($pdo, $row["NO_DOC_LETTRE_MOTIVATION"]),$dossier ,$formationsql->getById($pdo, $row["NO_FORMATION"]), $row['VERIFCATION'], $row["DATE"]);
             return $candidature;
     }
     
@@ -95,9 +95,9 @@ class CandidatureSql {
                 $dossiersql=new DossierSql();
                 $dossier=$dossiersql->getDossierById($pdo, $row['NO_DOSSIER']);
             }
-            
+            $docSql=new DocumentSql();
             $formationsql=new FormationSql();
-            $candidature=new Candidature($row["NO_CANDIDATURE"], $row["NO_DOC_LETTRE_MOTIVATION"],$dossier ,$formationsql->getById($pdo, $row["NO_FORMATION"]), $row['VERIFCATION'], $row["DATE"]);
+            $candidature=new Candidature($row["NO_CANDIDATURE"],$docSql->getNomById($pdo, $row["NO_DOC_LETTRE_MOTIVATION"]),$dossier ,$formationsql->getById($pdo, $row["NO_FORMATION"]), $row['VERIFCATION'], $row["DATE"]);
             array_push($tabCandidature, $candidature);
         }
         return $tabCandidature;
@@ -117,9 +117,9 @@ class CandidatureSql {
                 $dossiersql=new DossierSql();
                 $dossier=$dossiersql->getDossierById($pdo, $row['NO_DOSSIER']);
             }
-            
+            $docSql=new DocumentSql();
             $formationsql=new FormationSql();
-            $candidature=new Candidature($row["NO_CANDIDATURE"], $row["NO_DOC_LETTRE_MOTIVATION"],$dossier ,$formationsql->getById($pdo, $row["NO_FORMATION"]), $row['VERIFCATION'], $row["DATE"]);
+            $candidature=new Candidature($row["NO_CANDIDATURE"],$docSql->getNomById($pdo, $row["NO_DOC_LETTRE_MOTIVATION"]),$dossier ,$formationsql->getById($pdo, $row["NO_FORMATION"]), $row['VERIFCATION'], $row["DATE"]);
             array_push($tabCandidature, $candidature);
         }
         return $tabCandidature;
